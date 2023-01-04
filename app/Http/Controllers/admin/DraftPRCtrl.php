@@ -17,6 +17,11 @@ use App\FundType;
 
 class DraftPRCtrl extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $data = ProcureMain::select('procure_main.*','office.office as office','procurement_mode.mode as mode','procure_status.status as status','category.category as category',
@@ -31,8 +36,15 @@ class DraftPRCtrl extends Controller
         ->leftJoin('signatories as cert_by1','procure_main.cert_by1','=','cert_by1.id')
         ->leftJoin('signatories as cert_by2','procure_main.cert_by2','=','cert_by2.id')
         ->where('procure_main.L1_status','3')
+        ->orderby('procure_main.id','desc')
         ->get();
-
+        
+        // $data = DB::connection('hrisv2')->table('emp_basic')
+        // ->select('emp_basic.agencyid', DB::raw("CONCAT(emp_education_maphd.name_ext,' ',vw_nameext.name_ext) as full_name"))
+        // ->leftjoin('emp_education_maphd','emp_education_maphd.agencyid','=','emp_basic.agencyid')
+        // ->leftjoin('vw_nameext','vw_nameext.agencyid','=','emp_basic.agencyid')
+        // ->where('emp_basic.agencyid','2021-087')
+        // ->get();
 
         return view('admin.prdraft',[
             'data' => $data
@@ -56,5 +68,15 @@ class DraftPRCtrl extends Controller
             'category' => $category,
             'fundtype' => $fundtype
         ]);
+    }
+
+    public function addPR (Request $req)
+    {
+       $data = $req->all();
+
+       ProcureMain::create($data);
+
+       Session::put('addPR',true);
+       return redirect()->back();
     }
 }

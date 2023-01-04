@@ -10,4 +10,17 @@
         })
   
     });
+
+    @if(Session::get('addPR'))
+        Lobibox.notify('success', {
+            title: "",
+            msg: "Draft Succesfully Added",
+            size: 'mini',e
+            rounded: true
+        });
+        <?php
+        Session::put("addPR",false);
+        ?>
+        @endif
+
 </script>

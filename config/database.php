@@ -78,6 +78,18 @@ return [
             'sslmode' => 'prefer',
         ],
 
+         'hrisv2' => [
+            'driver' => 'sqlsrv',
+            'host' => '192.168.1.62',
+            'port' => '1433',
+            'database' => 'hris3',
+            'username' => 'doh',
+            'password' => 'SoccSKsargen12',
+            'prefix' => '',
+            'strict' => false,
+            'engine' => null,
+        ],
+
         'sqlsrv' => [
             'driver' => 'sqlsrv',
             'url' => env('DATABASE_URL'),

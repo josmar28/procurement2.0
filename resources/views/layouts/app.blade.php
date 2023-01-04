@@ -26,6 +26,8 @@
     <link href="{{ asset('resources/assets/fontawesome/css/solid.css') }}" rel="stylesheet">
     <link href="{{ asset('resources/assets/fontawesome/css/v5-font-face.css') }}" rel="stylesheet">
     <link href="{{ asset('resources/assets/fontawesome/css/v4-font-face.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('resources/plugin_old/Lobibox/lobibox.css') }}" rel="stylesheet">
 </head>
 
 @include('layouts.css')
@@ -245,9 +247,9 @@
                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ asset('procurement/draft') }}"
                                 aria-expanded="false"><i class="fas fa-list-alt"></i><span
                                     class="hide-menu">Draft PR List</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="app-calendar.html"
+                        <!-- <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="app-calendar.html"
                                 aria-expanded="false"><i class="fas fa-plus"></i><span
-                                    class="hide-menu">Create PR</span></a></li>
+                                    class="hide-menu">Create PR</span></a></li> -->
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu">Components</span></li>
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
@@ -436,6 +438,15 @@
 
 <script src="{{ asset('resources/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('resources/dist/js/pages/datatable/datatable-basic.init.js') }}"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="{{ asset('resources/xyuymkymesgcocke/assets/libs/popper.js/dist/umd/popper.min.js') }}"></script>
+    <!-- apps -->
+    <script src="{{ asset('resources/xyuymkymesgcocke/dist/js/app.min.js') }}"></script>
+    <script src="{{ asset('resources/xyuymkymesgcocke/dist/js/app.init-menusidebar.js') }}"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="{{ asset('resources/xyuymkymesgcocke/assets/extra-libs/sparkline/sparkline.js') }}"></script>
+
+    <script src="{{ asset('resources/plugin_old/Lobibox/Lobibox.js') }}"></script>
 
 <script>var loadingState = '<center><img src="{{ asset('resources/img/spin.gif') }}" width="150" style="padding:20px;"></center>'; </script>
 @yield('js')

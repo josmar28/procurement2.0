@@ -19,7 +19,7 @@
                                         <table id="zero_config" class="table table-striped table-bordered no-wrap">
                                             <thead>
                                                 <tr>
-                                                     <th>Options</th>
+                                                     <th >Options</th>
                                                     <th>Barcode</th>
                                                     <th>Status</th>
                                                     <th>Office</th>

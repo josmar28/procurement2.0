@@ -9,11 +9,7 @@
                              </div>
                              <div class="modal-body createpr_body">
                             </div>
-                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-light"
-                                                    data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-success">Save</button>
-                              </div>
+                      
                 </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
