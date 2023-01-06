@@ -32,3 +32,4 @@ Route::get('procurement/tracking', 'admin\PRtrackingCtrl@index');
 Route::get('procurement/draft', 'admin\DraftPRCtrl@index');
 Route::get('procurement/createpr', 'admin\DraftPRCtrl@createPR');
 Route::post('procurement/add', 'admin\DraftPRCtrl@addPR');
+Route::post('procurement/additem', 'admin\DraftPRCtrl@addItem');

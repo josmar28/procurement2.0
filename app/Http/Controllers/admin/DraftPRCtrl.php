@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use App\ProcureMain;
 use App\ProcureStatus;
 use App\TypeProcure;
+use Auth;
+use App\ProcureApp;
 use App\Office;
 use App\Category;
 use App\FundType;
@@ -36,6 +38,7 @@ class DraftPRCtrl extends Controller
         ->leftJoin('signatories as cert_by1','procure_main.cert_by1','=','cert_by1.id')
         ->leftJoin('signatories as cert_by2','procure_main.cert_by2','=','cert_by2.id')
         ->where('procure_main.L1_status','3')
+        ->where('procure_main.L1_office',Auth::user()->office)
         ->orderby('procure_main.id','desc')
         ->get();
         
@@ -78,5 +81,37 @@ class DraftPRCtrl extends Controller
 
        Session::put('addPR',true);
        return redirect()->back();
+    }
+
+    static function countItem ($barcode)
+    {
+       $data = ProcureApp::where('pr_ref',$barcode)->count();
+
+        return $data;
+    }
+
+    public function addItem (Request $req)
+    {
+        $items = ProcureApp::where('pr_ref',$req->id)->get();
+
+        $data = ProcureMain::select('procure_main.*','office.office as office','procurement_mode.mode as mode','procure_status.status as status','category.category as category',
+        'procure_type.type as procure_type','requested_by.name as req_name','approved_by.name as app_name','cert_by1.name as cert1_name','cert_by2.name as cert2_name')
+        ->leftJoin('office','procure_main.L1_office','=','office.id')
+        ->leftJoin('procurement_mode','procure_main.L1_modeproc','=','procurement_mode.id')
+        ->leftJoin('procure_status','procure_main.L1_status','=','procure_status.id')
+        ->leftJoin('category','procure_main.L1_typeproc','=','category.category_id')
+        ->leftJoin('procure_type','procure_main.type_procure','=','procure_type.id')
+        ->leftJoin('signatories as requested_by','procure_main.requested_by','=','requested_by.id')
+        ->leftJoin('signatories as approved_by','procure_main.approved_by','=','approved_by.id')
+        ->leftJoin('signatories as cert_by1','procure_main.cert_by1','=','cert_by1.id')
+        ->leftJoin('signatories as cert_by2','procure_main.cert_by2','=','cert_by2.id')
+        ->where('procure_main.id',$req->id)
+        ->orderby('procure_main.id','desc')
+        ->first();
+
+        return view('admin.additem_body',[
+            'items' => $items,
+            'data' => $data
+        ]);
     }
 }

@@ -1,12 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+<?php  
+    use App\Http\Controllers\admin\DraftPRCtrl as DraftPRCtrl;
+?>
 <div class="container-fluid">
-<div class="row">
+    <div class="row">
             <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Procurement Tracking</h4>
+                                <h4 class="card-title">Draft PR List</h4>
                                     <div style="margin-bottom:20px;">
                                     <a href="#createpr_modal" data-toggle="modal" class="btn waves-effect waves-light btn-success createpr_modal">
                                               <i class="fa fa-plus"></i> Create PR
@@ -19,7 +22,7 @@
                                         <table id="zero_config" class="table table-striped table-bordered no-wrap">
                                             <thead>
                                                 <tr>
-                                                     <th >Options</th>
+                                                    <th>Options</th>
                                                     <th>Barcode</th>
                                                     <th>Status</th>
                                                     <th>Office</th>
@@ -38,8 +41,20 @@
                                             </thead>
                                             <tbody>
                                             @foreach($data as $dat)
+                                            <?php  
+                                                $totalitems = DraftPRCtrl::countItem($dat->id);
+                                            ?>
+                                        
                                                 <tr>
-                                                    <td>{{$dat->id}}</td>
+                                                    <td> 
+                                                        <a href="#additem_modal" data-id ="{{$dat->id}}" data-toggle="modal" class="btn waves-effect waves-light btn-success additem_modal">
+                                                        @if($totalitems > 1 || $totalitems == 0)
+                                                        {{$totalitems}} Items 
+                                                        @else 
+                                                        {{$totalitems}} Item 
+                                                        @endif
+                                                        </a>
+                                                    </td>
                                                     <td>{{$dat->id}}</td>
                                                     <td>{{$dat->status}}</td>
                                                     <td>{{$dat->office}}</td>
@@ -70,6 +85,10 @@
                                                     <th>Mode</th>
                                                     <th>Date Receive</th>
                                                     <th>Date Forwarded to Enduser</th>
+                                                    <th>Requested By</th>
+                                                    <th>Approved By</th>
+                                                    <th>Certified By</th>
+                                                    <th>Certified By</th>
                                                 </tr>
                                             </tfoot>
                                         </table>
@@ -79,6 +98,7 @@
                         </div>
                 </div>
         </div>
+    </div>
 </div>
 
 @include('modal.createpr')
