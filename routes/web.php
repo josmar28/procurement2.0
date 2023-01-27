@@ -32,4 +32,10 @@ Route::get('procurement/tracking', 'admin\PRtrackingCtrl@index');
 Route::get('procurement/draft', 'admin\DraftPRCtrl@index');
 Route::get('procurement/createpr', 'admin\DraftPRCtrl@createPR');
 Route::post('procurement/add', 'admin\DraftPRCtrl@addPR');
-Route::post('procurement/additem', 'admin\DraftPRCtrl@addItem');
+Route::post('procurement/showitem', 'admin\DraftPRCtrl@showItem');
+//get title per category
+Route::post('get/title', 'admin\DraftPRCtrl@getTitle');
+//get per name
+Route::post('get/name', 'admin\DraftPRCtrl@getName');
+//add item
+Route::post('procurement/add/item', 'admin\DraftPRCtrl@addItem');

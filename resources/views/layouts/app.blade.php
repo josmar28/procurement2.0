@@ -420,10 +420,11 @@
 <!-- Adminmart core JavaScript
 ================================================== -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="{{ asset('public/js/app.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
 <script src="{{ asset('resources/xyuymkymesgcocke/assets/libs/jquery/dist/jquery.min.js') }}"></script>
 <script src="{{ asset('resources/xyuymkymesgcocke/assets/libs/popper.js/dist/umd/popper.min.js') }}"></script>
 <script src="{{ asset('resources/xyuymkymesgcocke/assets/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <!-- apps -->
 <script src="{{ asset('resources/xyuymkymesgcocke/dist/js/app-style-switcher.js') }}"></script>
 <script src="{{ asset('resources/xyuymkymesgcocke/dist/js/feather.min.js') }}"></script>

@@ -14,6 +14,8 @@ use App\TypeProcure;
 use Auth;
 use App\ProcureApp;
 use App\Office;
+use App\App;
+use App\Supply;
 use App\Category;
 use App\FundType;
 
@@ -26,6 +28,7 @@ class DraftPRCtrl extends Controller
 
     public function index()
     {
+        // ->where('procure_main.L1_office',Auth::user()->office)
         $data = ProcureMain::select('procure_main.*','office.office as office','procurement_mode.mode as mode','procure_status.status as status','category.category as category',
         'procure_type.type as procure_type','requested_by.name as req_name','approved_by.name as app_name','cert_by1.name as cert1_name','cert_by2.name as cert2_name')
         ->leftJoin('office','procure_main.L1_office','=','office.id')
@@ -38,7 +41,6 @@ class DraftPRCtrl extends Controller
         ->leftJoin('signatories as cert_by1','procure_main.cert_by1','=','cert_by1.id')
         ->leftJoin('signatories as cert_by2','procure_main.cert_by2','=','cert_by2.id')
         ->where('procure_main.L1_status','3')
-        ->where('procure_main.L1_office',Auth::user()->office)
         ->orderby('procure_main.id','desc')
         ->get();
         
@@ -64,7 +66,8 @@ class DraftPRCtrl extends Controller
         $category = Category::where('void',1)->orderby('category_id','asc')->get();
         $fundtype = FundType::where('void',1)->orderby('id','asc')->get();
 
-        return view('admin.createpr_body',[
+
+        return response()->json([
             'status' => $status,
             'type' => $type,
             'office' => $office,
@@ -76,11 +79,11 @@ class DraftPRCtrl extends Controller
     public function addPR (Request $req)
     {
        $data = $req->all();
+       $data = ProcureMain::create($data);
 
-       ProcureMain::create($data);
-
-       Session::put('addPR',true);
-       return redirect()->back();
+        return response()->json([
+        'data' => $data
+        ]);
     }
 
     static function countItem ($barcode)
@@ -90,12 +93,13 @@ class DraftPRCtrl extends Controller
         return $data;
     }
 
-    public function addItem (Request $req)
+    public function showItem (Request $req)
     {
         $items = ProcureApp::where('pr_ref',$req->id)->get();
 
         $data = ProcureMain::select('procure_main.*','office.office as office','procurement_mode.mode as mode','procure_status.status as status','category.category as category',
-        'procure_type.type as procure_type','requested_by.name as req_name','approved_by.name as app_name','cert_by1.name as cert1_name','cert_by2.name as cert2_name')
+        'procure_type.type as procure_type','requested_by.name as req_name','approved_by.name as app_name','cert_by1.name as cert1_name','cert_by2.name as cert2_name', 'fundyear.year as year')
+        ->leftJoin('fundyear','procure_main.L2_fundyear','=','fundyear.id')
         ->leftJoin('office','procure_main.L1_office','=','office.id')
         ->leftJoin('procurement_mode','procure_main.L1_modeproc','=','procurement_mode.id')
         ->leftJoin('procure_status','procure_main.L1_status','=','procure_status.id')
@@ -109,8 +113,37 @@ class DraftPRCtrl extends Controller
         ->orderby('procure_main.id','desc')
         ->first();
 
-        return view('admin.additem_body',[
+        
+        return response()->json([
             'items' => $items,
+            'info' => $data
+        ]);
+    }
+
+    public function getTitle (Request $req)
+    {
+
+        $data = App::select('id','name','supply_id')->where('category_id',$req->category_id)->where('year',$req->year)->get();
+
+        return response()->json([
+            'data' => $data
+        ]);
+    }
+
+    public function getName (Request $req)
+    {
+        $data = Supply::select('supply_id','item_desc','price')
+                ->where('supply_id',$req->supply_id)->first();
+
+        return response()->json([
+            'data' => $data
+        ]);
+    }
+
+    public function addItem(Request $req)
+    {
+
+        return response()->json([
             'data' => $data
         ]);
     }
