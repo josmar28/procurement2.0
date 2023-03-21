@@ -1,6 +1,6 @@
 <template>
     <div class="col-12">
-                        <div class="card">
+        <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Draft PR List</h4>
                                     <div style="margin-bottom:20px;">
@@ -73,7 +73,7 @@
                                         </table>
                                 </div>
                             </div>
-                        </div>
+        </div>
         <div id="create_item_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="success-header-modalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                             <div class="modal-content">
@@ -93,13 +93,15 @@
                                                                         <div class="col-md-6">
                                                                             <div class="form-group">
                                                                             <h4 class="card-title">PR Number</h4>
-                                                                                <input type="text" class="form-control" placeholder="Input Here..." v-model="formAdd.L1_trackno" disabled>
+                                                                                <input type="text" class="form-control" placeholder="Input Here..." v-model="L1_trackno_show" disabled>
+                                                                                <input type="hidden" class="form-control" placeholder="Input Here..." v-model="formAdd.pr_ref">
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group">
                                                                                     <h4 class="card-title">Year</h4>
-                                                                                    <input type="text" class="form-control" placeholder="Input Here..." v-model="formAdd.L2_fundyear" disabled>
+                                                                                    <input type="text" class="form-control" placeholder="Input Here..." v-model="year_show" disabled>
+                                                                                    <input type="hidden" class="form-control" placeholder="Input Here..." v-model="formAdd.year" disabled>
                                                                             </div>
                                                                         </div>
                                                                 </div>
@@ -107,13 +109,15 @@
                                                                         <div class="col-md-6">
                                                                             <div class="form-group">
                                                                             <h4 class="card-title">Office</h4>
-                                                                                <input type="text" class="form-control" placeholder="Input Here..." v-model="formAdd.L1_office" disabled>
+                                                                            <input type="text" class="form-control" placeholder="Input Here..." v-model="office_show" disabled>
+                                                                                <input type="hidden" class="form-control" placeholder="Input Here..." v-model="formAdd.office" disabled>
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group">
                                                                                     <h4 class="card-title">Category</h4>
-                                                                                        <input type="text" class="form-control" placeholder="Input Here..." v-model="formAdd.L1_typeproc" disabled>
+                                                                                    <input type="text" class="form-control" placeholder="Input Here..." v-model="category_show" disabled>
+                                                                                        <input type="hidden" class="form-control" placeholder="Input Here..." v-model="formAdd.category_id" disabled>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -122,15 +126,15 @@
                                                                             <div class="form-group">
                                                                                 <h4 class="card-title">Title</h4>
                                                                                 <select class="form-control" v-model="formAdd.title" @change="title_change($event)">
-                                                                                <option value="" selected disabled>-Select-</option>
-                                                                                <option v-for="title in titleList" :value="title.supply_id">{{ title.name }}</option>
+                                                                                    <option value="" selected disabled>-Select-</option>
+                                                                                    <option v-for="title in titleList" :value="title.supply_id" :data-id="title.id">{{ title.name }}</option>
                                                                                 </select>
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-6">
                                                                             <div class="form-group">
                                                                                 <h4 class="card-title">Name</h4>
-                                                                                <input type="hidden" class="form-control" placeholder="Input Here..." v-model="formAdd.app_item" disabled>
+                                                                                <input type="text" class="form-control" placeholder="Input Here..." v-model="formAdd.app_item" disabled>
                                                                                 <textarea class="form-control" rows="3" v-model="app_item_show" placeholder="" disabled></textarea>
                                                                             </div>
                                                                         </div>
@@ -184,7 +188,7 @@
                                                                         <div class="card-body">
                                                                             <div class="table-responsive">
                                                                             <font size="2">
-                                                                                    <table id="zero_config" class="table table-striped table-bordered no-wrap">
+                                                                                    <table class="table table-striped table-bordered no-wrap">
                                                                                         <thead>
                                                                                             <tr>
                                                                                                 <th>Barcode</th>
@@ -515,13 +519,15 @@ export default{
                 type_procure: null
             },
             formAdd: {
-                L1_trackno: null,
-                L2_fundyear: null,
-                L1_office: null,
-                L1_typeproc: null,
+                
+                pr_ref: null,
+                year: null,
+                office: null,
+                category_id: null,
                 title: null,
                 app_item: null,
              },
+            L1_trackno_show: null,
             titleList: [],
             app_item_show: null,
          }
@@ -587,10 +593,15 @@ export default{
             const vm = this;
             $('#show_item_modal').modal('hide');
             $('#create_item_modal').modal('show');
-            vm.formAdd.L1_trackno = data.L1_trackno,
-            vm.formAdd.L2_fundyear = data.year,
-            vm.formAdd.L1_office = data.office,
-            vm.formAdd.L1_typeproc = data.category,
+            // console.log(data)
+            vm.L1_trackno_show = data.L1_trackno,
+            vm.year_show = data.year,
+            vm.office_show = data.office,
+            vm.category_show = data.category,
+            vm.formAdd.year = data.year_id,
+            vm.formAdd.office = data.office_id,
+            vm.formAdd.category_id = data.category_id,
+            vm.formAdd.pr_ref = data.id,
             axios
                 .post('/procurement2.0/get/title',{
                     category_id : data.L1_typeproc,
@@ -603,20 +614,19 @@ export default{
                     console.log(error)
                 })
         },
-        title_change(event,id) {
+        title_change(event) {
             const vm = this;
-            console.log(id);
-            axios
-                .post('/procurement2.0/get/name',{
-                    supply_id : event.target.value
-                })
-                .then(function(response){
-                    vm.app_item_show = response.data.data.item_desc + ', ' + response.data.data.price;
-                    vm.formAdd.app_item = response.data.data.supply_id;
-                })
-                .catch(function(error){
-                    console.log(error)
-                })
+                axios
+                    .post('/procurement2.0/get/name',{
+                        supply_id : event.target.value
+                    })
+                    .then(function(response){
+                        vm.app_item_show = response.data.data.item_desc + ', ' + response.data.data.price;
+                        vm.formAdd.app_item = event.target.options[event.target.options.selectedIndex].getAttribute('data-id');
+                    })
+                    .catch(function(error){
+                        console.log(error)
+                    })
         },
         item_submit() {
             const vm = this;

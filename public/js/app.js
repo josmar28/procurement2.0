@@ -1937,13 +1937,14 @@ __webpack_require__.r(__webpack_exports__);
         type_procure: null
       },
       formAdd: {
-        L1_trackno: null,
-        L2_fundyear: null,
-        L1_office: null,
-        L1_typeproc: null,
+        pr_ref: null,
+        year: null,
+        office: null,
+        category_id: null,
         title: null,
         app_item: null
       },
+      L1_trackno_show: null,
       titleList: [],
       app_item_show: null
     };
@@ -1988,7 +1989,8 @@ __webpack_require__.r(__webpack_exports__);
       var vm = this;
       $('#show_item_modal').modal('hide');
       $('#create_item_modal').modal('show');
-      vm.formAdd.L1_trackno = data.L1_trackno, vm.formAdd.L2_fundyear = data.year, vm.formAdd.L1_office = data.office, vm.formAdd.L1_typeproc = data.category, axios.post('/procurement2.0/get/title', {
+      // console.log(data)
+      vm.L1_trackno_show = data.L1_trackno, vm.year_show = data.year, vm.office_show = data.office, vm.category_show = data.category, vm.formAdd.year = data.year_id, vm.formAdd.office = data.office_id, vm.formAdd.category_id = data.category_id, vm.formAdd.pr_ref = data.id, axios.post('/procurement2.0/get/title', {
         category_id: data.L1_typeproc,
         year: data.L2_fundyear
       }).then(function (response) {
@@ -1997,14 +1999,13 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     },
-    title_change: function title_change(event, id) {
+    title_change: function title_change(event) {
       var vm = this;
-      console.log(id);
       axios.post('/procurement2.0/get/name', {
         supply_id: event.target.value
       }).then(function (response) {
         vm.app_item_show = response.data.data.item_desc + ', ' + response.data.data.price;
-        vm.formAdd.app_item = response.data.data.supply_id;
+        vm.formAdd.app_item = event.target.options[event.target.options.selectedIndex].getAttribute('data-id');
       })["catch"](function (error) {
         console.log(error);
       });
@@ -2123,8 +2124,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.formAdd.L1_trackno,
-      expression: "formAdd.L1_trackno"
+      value: _vm.L1_trackno_show,
+      expression: "L1_trackno_show"
     }],
     staticClass: "form-control",
     attrs: {
@@ -2133,12 +2134,33 @@ var render = function render() {
       disabled: ""
     },
     domProps: {
-      value: _vm.formAdd.L1_trackno
+      value: _vm.L1_trackno_show
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
-        _vm.$set(_vm.formAdd, "L1_trackno", $event.target.value);
+        _vm.L1_trackno_show = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.formAdd.pr_ref,
+      expression: "formAdd.pr_ref"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "hidden",
+      placeholder: "Input Here..."
+    },
+    domProps: {
+      value: _vm.formAdd.pr_ref
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.formAdd, "pr_ref", $event.target.value);
       }
     }
   })])]), _vm._v(" "), _c("div", {
@@ -2151,8 +2173,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.formAdd.L2_fundyear,
-      expression: "formAdd.L2_fundyear"
+      value: _vm.year_show,
+      expression: "year_show"
     }],
     staticClass: "form-control",
     attrs: {
@@ -2161,12 +2183,34 @@ var render = function render() {
       disabled: ""
     },
     domProps: {
-      value: _vm.formAdd.L2_fundyear
+      value: _vm.year_show
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
-        _vm.$set(_vm.formAdd, "L2_fundyear", $event.target.value);
+        _vm.year_show = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.formAdd.year,
+      expression: "formAdd.year"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "hidden",
+      placeholder: "Input Here...",
+      disabled: ""
+    },
+    domProps: {
+      value: _vm.formAdd.year
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.formAdd, "year", $event.target.value);
       }
     }
   })])])]), _vm._v(" "), _c("div", {
@@ -2181,8 +2225,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.formAdd.L1_office,
-      expression: "formAdd.L1_office"
+      value: _vm.office_show,
+      expression: "office_show"
     }],
     staticClass: "form-control",
     attrs: {
@@ -2191,12 +2235,34 @@ var render = function render() {
       disabled: ""
     },
     domProps: {
-      value: _vm.formAdd.L1_office
+      value: _vm.office_show
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
-        _vm.$set(_vm.formAdd, "L1_office", $event.target.value);
+        _vm.office_show = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.formAdd.office,
+      expression: "formAdd.office"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "hidden",
+      placeholder: "Input Here...",
+      disabled: ""
+    },
+    domProps: {
+      value: _vm.formAdd.office
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.formAdd, "office", $event.target.value);
       }
     }
   })])]), _vm._v(" "), _c("div", {
@@ -2209,8 +2275,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.formAdd.L1_typeproc,
-      expression: "formAdd.L1_typeproc"
+      value: _vm.category_show,
+      expression: "category_show"
     }],
     staticClass: "form-control",
     attrs: {
@@ -2219,12 +2285,34 @@ var render = function render() {
       disabled: ""
     },
     domProps: {
-      value: _vm.formAdd.L1_typeproc
+      value: _vm.category_show
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
-        _vm.$set(_vm.formAdd, "L1_typeproc", $event.target.value);
+        _vm.category_show = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.formAdd.category_id,
+      expression: "formAdd.category_id"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "hidden",
+      placeholder: "Input Here...",
+      disabled: ""
+    },
+    domProps: {
+      value: _vm.formAdd.category_id
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.formAdd, "category_id", $event.target.value);
       }
     }
   })])])]), _vm._v(" "), _c("div", {
@@ -2264,6 +2352,9 @@ var render = function render() {
     }
   }, [_vm._v("-Select-")]), _vm._v(" "), _vm._l(_vm.titleList, function (title) {
     return _c("option", {
+      attrs: {
+        "data-id": title.id
+      },
       domProps: {
         value: title.supply_id
       }
@@ -2283,7 +2374,7 @@ var render = function render() {
     }],
     staticClass: "form-control",
     attrs: {
-      type: "hidden",
+      type: "text",
       placeholder: "Input Here...",
       disabled: ""
     },
@@ -2390,10 +2481,7 @@ var render = function render() {
       size: "2"
     }
   }, [_c("table", {
-    staticClass: "table table-striped table-bordered no-wrap",
-    attrs: {
-      id: "zero_config"
-    }
+    staticClass: "table table-striped table-bordered no-wrap"
   }, [_c("thead", [_c("tr", [_c("th", [_vm._v("Barcode")]), _vm._v(" "), _c("th", [_vm._v("Status")]), _vm._v(" "), _c("th", [_vm._v("Office")]), _vm._v(" "), _c("th", [_vm._v("Procurement Title")]), _vm._v(" "), _c("th", [_vm._v("Procurement Type")]), _vm._v(" "), _c("th", [_vm._v("Pruchase Request No.")]), _vm._v(" "), _c("th", [_vm._v("Category")]), _vm._v(" "), _c("th", [_vm._v("Mode")]), _vm._v(" "), _c("th", [_vm._v("Date Receive")]), _vm._v(" "), _c("th", [_vm._v("Date Forwarded to Enduser")]), _vm._v(" "), _c("th", [_vm._v("Requested By")]), _vm._v(" "), _c("th", [_vm._v("Approved By")]), _vm._v(" "), _c("th", [_vm._v("Certified By")]), _vm._v(" "), _c("th", [_vm._v("Certified By")])])]), _vm._v(" "), _c("tbody", [_c("tr", [_c("td", [_vm._v(_vm._s(_vm.dataShow.id))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.dataShow.status))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.dataShow.office))]), _vm._v(" "), _c("td", {
     staticStyle: {
       "max-width": "400px",

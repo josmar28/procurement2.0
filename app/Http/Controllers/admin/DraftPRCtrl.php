@@ -97,8 +97,9 @@ class DraftPRCtrl extends Controller
     {
         $items = ProcureApp::where('pr_ref',$req->id)->get();
 
-        $data = ProcureMain::select('procure_main.*','office.office as office','procurement_mode.mode as mode','procure_status.status as status','category.category as category',
-        'procure_type.type as procure_type','requested_by.name as req_name','approved_by.name as app_name','cert_by1.name as cert1_name','cert_by2.name as cert2_name', 'fundyear.year as year')
+        $data = ProcureMain::select('procure_main.*','office.office as office','office.id as office_id','procurement_mode.mode as mode','procure_status.status as status',
+        'category.category as category','category.category_id as category_id','procure_type.type as procure_type','requested_by.name as req_name','approved_by.name as app_name','cert_by1.name as cert1_name',
+        'cert_by2.name as cert2_name', 'fundyear.year as year', 'fundyear.id as year_id')
         ->leftJoin('fundyear','procure_main.L2_fundyear','=','fundyear.id')
         ->leftJoin('office','procure_main.L1_office','=','office.id')
         ->leftJoin('procurement_mode','procure_main.L1_modeproc','=','procurement_mode.id')
@@ -123,7 +124,9 @@ class DraftPRCtrl extends Controller
     public function getTitle (Request $req)
     {
 
-        $data = App::select('id','name','supply_id')->where('category_id',$req->category_id)->where('year',$req->year)->get();
+        $data = App::select('id','name','supply_id')
+            ->where('category_id',$req->category_id)
+            ->where('year',$req->year)->get();
 
         return response()->json([
             'data' => $data
@@ -142,6 +145,18 @@ class DraftPRCtrl extends Controller
 
     public function addItem(Request $req)
     {
+        // dd($req->all());
+        $data = array(
+            'pr_ref' => $req->pr_ref,
+            'office' => $req->office,
+            'year' => $req->year,
+            'category_id' => $req->category_id,
+            'app_item' => $req->app_item,
+            'quantity' => $req->quantity,
+            'title' => $req->app_item,
+            'include_rfq' => 1,
+        );
+        ProcureApp::Create($data);
 
         return response()->json([
             'data' => $data
