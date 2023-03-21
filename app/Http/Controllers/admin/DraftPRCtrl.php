@@ -18,6 +18,7 @@ use App\App;
 use App\Supply;
 use App\Category;
 use App\FundType;
+use App\FundYear;
 
 class DraftPRCtrl extends Controller
 {
@@ -60,19 +61,20 @@ class DraftPRCtrl extends Controller
 
     public function createPR (Request $req)
     {
-        $status = ProcureStatus::where('status','DRAFT')->get();
+        $status = ProcureStatus::all();
         $type = TypeProcure::where('void',1)->orderby('id','asc')->get();
         $office = Office::where('void',1)->orderby('id','asc')->get();
         $category = Category::where('void',1)->orderby('category_id','asc')->get();
         $fundtype = FundType::where('void',1)->orderby('id','asc')->get();
-
+        $year = FundYear::where('void',1)->orderby('id','asc')->get();
 
         return response()->json([
             'status' => $status,
             'type' => $type,
             'office' => $office,
             'category' => $category,
-            'fundtype' => $fundtype
+            'fundtype' => $fundtype,
+            'year' => $year
         ]);
     }
 

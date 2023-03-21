@@ -30,7 +30,8 @@ class PRtrackingCtrl extends Controller
                 ->leftJoin('procurement_mode','procure_main.L1_modeproc','=','procurement_mode.id')
                 ->leftJoin('procure_status','procure_main.L1_status','=','procure_status.id')
                 ->leftJoin('category','procure_main.L1_typeproc','=','category.category_id')
-                ->leftJoin('procure_type','procure_main.type_procure','=','procure_type.id')->get();
+                ->leftJoin('procure_type','procure_main.type_procure','=','procure_type.id')
+                ->get();
 
 
         return view('admin.prtracking',[

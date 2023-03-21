@@ -19,6 +19,8 @@
     <link href="{{ asset('resources/xyuymkymesgcocke/assets/libs/chartist/dist/chartist.min.css') }}" rel="stylesheet">
     <link href="{{ asset('resources/xyuymkymesgcocke/dist/css/style.min.css') }}" rel="stylesheet">
 
+    <link href="{{ asset('resources/xyuymkymesgcocke/assets/extra-libs/prism/prism.css') }}" rel="stylesheet">
+
     <link href="{{ asset('resources/assets/css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('resources/assets/fontawesome/css/all.css') }}" rel="stylesheet">
     <link href="{{ asset('resources/assets/fontawesome/css/fontawesome.css') }}" rel="stylesheet">
@@ -419,12 +421,14 @@
 
 <!-- Adminmart core JavaScript
 ================================================== -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+
 <script src="{{ asset('public/js/app.js') }}"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
-<script src="{{ asset('resources/xyuymkymesgcocke/assets/libs/jquery/dist/jquery.min.js') }}"></script>
 <script src="{{ asset('resources/xyuymkymesgcocke/assets/libs/popper.js/dist/umd/popper.min.js') }}"></script>
-<script src="{{ asset('resources/xyuymkymesgcocke/assets/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<!-- <script src="{{ asset('resources/xyuymkymesgcocke/assets/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script> -->
+<script src="{{ asset('resources/xyuymkymesgcocke/assets/extra-libs/prism/prism.js') }}"></script>
 <!-- apps -->
 <script src="{{ asset('resources/xyuymkymesgcocke/dist/js/app-style-switcher.js') }}"></script>
 <script src="{{ asset('resources/xyuymkymesgcocke/dist/js/feather.min.js') }}"></script>
@@ -437,13 +441,13 @@
 <script src="{{ asset('resources/xyuymkymesgcocke/assets/extra-libs/c3/c3.min.js') }}"></script>
 <script src="{{ asset('resources/xyuymkymesgcocke/assets/libs/chartist/dist/chartist.min.js') }}"></script>
 
+
 <script src="{{ asset('resources/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('resources/dist/js/pages/datatable/datatable-basic.init.js') }}"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="{{ asset('resources/xyuymkymesgcocke/assets/libs/popper.js/dist/umd/popper.min.js') }}"></script>
     <!-- apps -->
-    <script src="{{ asset('resources/xyuymkymesgcocke/dist/js/app.min.js') }}"></script>
-    <script src="{{ asset('resources/xyuymkymesgcocke/dist/js/app.init-menusidebar.js') }}"></script>
+    <!-- <script src="{{ asset('resources/xyuymkymesgcocke/dist/js/app.min.js') }}"></script> -->
+    <!-- <script src="{{ asset('resources/xyuymkymesgcocke/dist/js/app.init-menusidebar.js') }}"></script> -->
     <!-- slimscrollbar scrollbar JavaScript -->
     <script src="{{ asset('resources/xyuymkymesgcocke/assets/extra-libs/sparkline/sparkline.js') }}"></script>
 

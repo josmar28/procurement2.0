@@ -14,4 +14,8 @@
 {
   width: 2%;
 }
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: black!important;
+    background: linear-gradient(90deg, rgba(124,251,63,1) 0%, rgba(70,252,180,1) 100%);
+}
 </style>

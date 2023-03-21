@@ -267,7 +267,9 @@
                                                                                     </thead>
                                                                                     <tbody>
                                                                                         <tr v-for="dat in itemShow" :key="dat.id">
-                                                                                            <td></td>
+                                                                                            <td>
+                                                                                                
+                                                                                            </td>
                                                                                             <td>{{ dat.id }}</td>
                                                                                             <td>{{ dat.status }}</td>
                                                                                             <td>{{ dat.office }}</td>
@@ -476,7 +478,7 @@
                                                                                 <button class="btn btn-info" @click="submit()">Submit</button>
                                                                             </div> 
                                                                         </div>
-                                                            </div>
+                                                                </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -514,6 +516,7 @@ export default{
                 date_prep_pr_enduser: null,
                 requested_by: null,
                 approved_by: null,
+                L1_title: null,
                 cert_by1: null,
                 cert_by2: null,
                 type_procure: null
@@ -528,6 +531,9 @@ export default{
                 app_item: null,
              },
             L1_trackno_show: null,
+            year_show: null,
+            office_show: null,
+            category_show: null,
             titleList: [],
             app_item_show: null,
          }
@@ -548,7 +554,8 @@ export default{
                     vm.form.supplier_inst = null,
                     vm.form.date_prep_pr_enduser = null,
                     vm.form.requested_by = null,
-                    vm.form.approved_by = null,
+                    vm.form.approved_by = null, 
+                    vm.form.L1_title = null,
                     vm.form.cert_by1 = null,
                     vm.form.cert_by2 = null,
                     vm.form.type_procure = null

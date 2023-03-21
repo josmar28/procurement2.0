@@ -1932,6 +1932,7 @@ __webpack_require__.r(__webpack_exports__);
         date_prep_pr_enduser: null,
         requested_by: null,
         approved_by: null,
+        L1_title: null,
         cert_by1: null,
         cert_by2: null,
         type_procure: null
@@ -1945,6 +1946,9 @@ __webpack_require__.r(__webpack_exports__);
         app_item: null
       },
       L1_trackno_show: null,
+      year_show: null,
+      office_show: null,
+      category_show: null,
       titleList: [],
       app_item_show: null
     };
@@ -1954,7 +1958,7 @@ __webpack_require__.r(__webpack_exports__);
       var vm = this;
       axios.post('/procurement2.0/procurement/add', this.form).then(function (response) {
         vm.dataLists.push(response.data.data);
-        vm.form.L1_status = null, vm.form.L1_office = null, vm.form.L2_fundyear = null, vm.form.L2_fundsource = null, vm.form.L1_typeproc = null, vm.form.L2_fundtype = null, vm.form.supplier_inst = null, vm.form.date_prep_pr_enduser = null, vm.form.requested_by = null, vm.form.approved_by = null, vm.form.cert_by1 = null, vm.form.cert_by2 = null, vm.form.type_procure = null;
+        vm.form.L1_status = null, vm.form.L1_office = null, vm.form.L2_fundyear = null, vm.form.L2_fundsource = null, vm.form.L1_typeproc = null, vm.form.L2_fundtype = null, vm.form.supplier_inst = null, vm.form.date_prep_pr_enduser = null, vm.form.requested_by = null, vm.form.approved_by = null, vm.form.L1_title = null, vm.form.cert_by1 = null, vm.form.cert_by2 = null, vm.form.type_procure = null;
         location.reload();
       })["catch"](function (error) {
         console.log(error);
@@ -2015,6 +2019,76 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/procurement2.0/procurement/add/item', this.formAdd).then(function (response) {
         vm.itemShow.push(response.data.data);
         vm.formAdd.L1_trackno = null, vm.formAdd.L2_fundyear = null, vm.formAdd.L1_office = null, vm.formAdd.L1_typeproc = null, vm.formAdd.title = null, vm.formAdd.app_item = null, location.reload();
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PrTrackingComponent.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PrTrackingComponent.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['data'],
+  data: function data() {
+    return {
+      dataLists: this.data,
+      barcode: null,
+      form: {
+        L1_status: null,
+        L1_office: null,
+        L2_fundyear: null,
+        L2_fundsource: null,
+        L1_typeproc: null,
+        L2_fundtype: null,
+        supplier_inst: null,
+        date_prep_pr_enduser: null,
+        requested_by: null,
+        approved_by: null,
+        L1_title: null,
+        cert_by1: null,
+        cert_by2: null,
+        type_procure: null
+      },
+      status: [],
+      type: [],
+      category: [],
+      office: [],
+      fundtype: [],
+      year: []
+    };
+  },
+  methods: {
+    view: function view(dat) {
+      console.log(dat);
+      var vm = this;
+      vm.form.L1_status = dat.L1_status;
+      vm.form.L1_office = dat.L1_office;
+      vm.form.L2_fundyear = dat.L2_fundyear;
+      vm.form.L2_fundsource = dat.L2_fundsource;
+      vm.form.L1_typeproc = dat.L1_typeproc;
+      vm.form.L2_fundtype = dat.L2_fundtype;
+      vm.form.type_procure = dat.type_procure;
+      vm.form.supplier_inst = dat.supplier_inst;
+      vm.form.L1_title = dat.L1_title;
+      vm.barcode = dat.id;
+      $('#view_modal').modal('show');
+      axios.get('/procurement2.0/procurement/createpr').then(function (response) {
+        vm.status = response.data.status;
+        vm.type = response.data.type;
+        vm.office = response.data.office;
+        vm.category = response.data.category;
+        vm.fundtype = response.data.fundtype;
+        vm.year = response.data.year;
       })["catch"](function (error) {
         console.log(error);
       });
@@ -3182,6 +3256,672 @@ var staticRenderFns = [function () {
       "aria-hidden": "true"
     }
   }, [_vm._v("×")])]);
+}];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PrTrackingComponent.vue?vue&type=template&id=3b911e09&":
+/*!****************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PrTrackingComponent.vue?vue&type=template&id=3b911e09& ***!
+  \****************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "container-fluid"
+  }, [_c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-12"
+  }, [_c("div", {
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-body"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("Procurement Tracking")]), _vm._v(" "), _c("div", {
+    staticClass: "table-responsive"
+  }, [_c("font", {
+    attrs: {
+      size: "2"
+    }
+  }, [_c("table", {
+    staticClass: "table table-striped table-bordered no-wrap",
+    attrs: {
+      id: "zero_config"
+    }
+  }, [_c("thead", [_c("tr", [_c("th", [_vm._v("Options")]), _vm._v(" "), _c("th", [_vm._v("Barcode")]), _vm._v(" "), _c("th", [_vm._v("Status")]), _vm._v(" "), _c("th", [_vm._v("Office")]), _vm._v(" "), _c("th", [_vm._v("Procurement Title")]), _vm._v(" "), _c("th", [_vm._v("Procurement Type")]), _vm._v(" "), _c("th", [_vm._v("Pruchase Request No.")]), _vm._v(" "), _c("th", [_vm._v("Category")]), _vm._v(" "), _c("th", [_vm._v("Mode")]), _vm._v(" "), _c("th", [_vm._v("Date Receive")]), _vm._v(" "), _c("th", [_vm._v("Date Forwarded to Enduser")])])]), _vm._v(" "), _c("tbody", _vm._l(_vm.dataLists, function (dat, index) {
+    return _c("tr", {
+      key: dat.id
+    }, [_c("td", [_c("div", {
+      staticClass: "btn-group"
+    }, [_c("button", {
+      staticClass: "btn dropdown-toggle",
+      attrs: {
+        type: "button",
+        "data-toggle": "dropdown",
+        "aria-haspopup": "true",
+        "aria-expanded": "false"
+      }
+    }, [_c("i", {
+      staticClass: "fas fa-ellipsis-v"
+    })]), _vm._v(" "), _c("div", {
+      staticClass: "dropdown-menu dropdown-menu-right"
+    }, [_c("button", {
+      staticClass: "dropdown-item",
+      attrs: {
+        type: "button"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.view(dat);
+        }
+      }
+    }, [_c("i", {
+      staticClass: "far fa-edit"
+    }), _vm._v(" View/Edit")]), _vm._v(" "), _c("button", {
+      staticClass: "dropdown-item",
+      attrs: {
+        type: "button"
+      }
+    }, [_c("i", {
+      staticClass: "far fa-trash-alt"
+    }), _vm._v(" Delete")]), _vm._v(" "), _c("button", {
+      staticClass: "dropdown-item",
+      attrs: {
+        type: "button"
+      }
+    }, [_c("i", {
+      staticClass: "fas fa-file-pdf"
+    }), _vm._v(" PR")]), _vm._v(" "), _c("button", {
+      staticClass: "dropdown-item",
+      attrs: {
+        type: "button"
+      }
+    }, [_c("i", {
+      staticClass: "fas fa-file-pdf"
+    }), _vm._v(" RFQ")]), _vm._v(" "), _c("button", {
+      staticClass: "dropdown-item",
+      attrs: {
+        type: "button"
+      }
+    }, [_c("i", {
+      staticClass: "fas fa-file-pdf"
+    }), _vm._v(" QA")]), _vm._v(" "), _c("button", {
+      staticClass: "dropdown-item",
+      attrs: {
+        type: "button"
+      }
+    }, [_c("i", {
+      staticClass: "fas fa-file-pdf"
+    }), _vm._v(" BAC Resolution")])])])]), _vm._v(" "), _c("td", [_vm._v(_vm._s(dat.id))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(dat.status))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(dat.office))]), _vm._v(" "), _c("td", {
+      staticStyle: {
+        "max-width": "400px",
+        "text-overflow": "ellipsis",
+        overflow: "hidden"
+      }
+    }, [_vm._v(_vm._s(dat.L1_title))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(dat.procure_type))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(dat.L1_trackno))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(dat.category))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(dat.mode))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(dat.date_received_pr))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(dat.date_forwarded_enduser))])]);
+  }), 0), _vm._v(" "), _c("tfoot", [_c("tr", [_c("th", [_vm._v("Options")]), _vm._v(" "), _c("th", [_vm._v("Barcode")]), _vm._v(" "), _c("th", [_vm._v("Status")]), _vm._v(" "), _c("th", [_vm._v("Office")]), _vm._v(" "), _c("th", [_vm._v("Procurement Title")]), _vm._v(" "), _c("th", [_vm._v("Procurement Type")]), _vm._v(" "), _c("th", [_vm._v("Pruchase Request No.")]), _vm._v(" "), _c("th", [_vm._v("Category")]), _vm._v(" "), _c("th", [_vm._v("Mode")]), _vm._v(" "), _c("th", [_vm._v("Date Receive")]), _vm._v(" "), _c("th", [_vm._v("Date Forwarded to Enduser")])])])])])], 1)])])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal fade",
+    attrs: {
+      id: "view_modal",
+      tabindex: "-1",
+      role: "dialog",
+      "aria-labelledby": "success-header-modalLabel",
+      "aria-hidden": "true"
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog modal-lg"
+  }, [_c("div", {
+    staticClass: "modal-content"
+  }, [_vm._m(0), _vm._v(" "), _c("div", {
+    staticClass: "modal-body"
+  }, [_c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-12"
+  }, [_c("div", {
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-body"
+  }, [_c("div", {
+    staticClass: "form-body"
+  }, [_c("h4", {
+    staticClass: "card-title mb-3"
+  }, [_vm._v("Tabs Justified")]), _vm._v(" "), _vm._m(1), _vm._v(" "), _c("div", {
+    staticClass: "tab-content"
+  }, [_c("div", {
+    staticClass: "tab-pane show active",
+    attrs: {
+      id: "home1"
+    }
+  }, [_c("div", {
+    staticClass: "form-body"
+  }, [_c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("Barcode")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.barcode,
+      expression: "barcode"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      readonly: ""
+    },
+    domProps: {
+      value: _vm.barcode
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.barcode = $event.target.value;
+      }
+    }
+  })])]), _vm._v(" "), _vm._m(2)]), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("Status")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.L1_status,
+      expression: "form.L1_status"
+    }],
+    staticClass: "form-control chosen-select",
+    attrs: {
+      id: "exampleFormControlSelect1"
+    },
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "L1_status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: "",
+      disabled: ""
+    }
+  }, [_vm._v("-Select-")]), _vm._v(" "), _vm._l(_vm.status, function (stat) {
+    return _c("option", {
+      domProps: {
+        value: stat.id
+      }
+    }, [_vm._v(_vm._s(stat.status))]);
+  })], 2)])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("Type")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.type_procure,
+      expression: "form.type_procure"
+    }],
+    staticClass: "form-control chosen-select",
+    attrs: {
+      id: "exampleFormControlSelect1"
+    },
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "type_procure", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: "",
+      disabled: ""
+    }
+  }, [_vm._v("-Select-")]), _vm._v(" "), _vm._l(_vm.type, function (ty) {
+    return _c("option", {
+      domProps: {
+        value: ty.id
+      }
+    }, [_vm._v(_vm._s(ty.type_procure))]);
+  })], 2)])])]), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("Purpose/Title")]), _vm._v(" "), _c("form", {
+    staticClass: "mt-3"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("textarea", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.L1_title,
+      expression: "form.L1_title"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      rows: "3",
+      placeholder: "Purpose/Title"
+    },
+    domProps: {
+      value: _vm.form.L1_title
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "L1_title", $event.target.value);
+      }
+    }
+  })])])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("Office")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.L1_office,
+      expression: "form.L1_office"
+    }],
+    staticClass: "form-control chosen-select",
+    attrs: {
+      id: "exampleFormControlSelect1"
+    },
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "L1_office", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: "",
+      disabled: ""
+    }
+  }, [_vm._v("-Select-")]), _vm._v(" "), _vm._l(_vm.office, function (of) {
+    return _c("option", {
+      domProps: {
+        value: of.id
+      }
+    }, [_vm._v(_vm._s(of.office))]);
+  })], 2)])])]), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("Fund Year")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.L2_fundyear,
+      expression: "form.L2_fundyear"
+    }],
+    staticClass: "form-control chosen-select",
+    attrs: {
+      id: "exampleFormControlSelect1"
+    },
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "L2_fundyear", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: "",
+      disabled: ""
+    }
+  }, [_vm._v("-Select-")]), _vm._v(" "), _vm._l(_vm.year, function (y) {
+    return _c("option", {
+      domProps: {
+        value: y.id
+      }
+    }, [_vm._v(_vm._s(y.year))]);
+  })], 2)])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("Fund Source")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.L2_fundsource,
+      expression: "form.L2_fundsource"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      placeholder: "Input Here..."
+    },
+    domProps: {
+      value: _vm.form.L2_fundsource
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "L2_fundsource", $event.target.value);
+      }
+    }
+  })])])]), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("Category")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.L1_typeproc,
+      expression: "form.L1_typeproc"
+    }],
+    staticClass: "form-control chosen-select",
+    attrs: {
+      id: "exampleFormControlSelect1"
+    },
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "L1_typeproc", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: "",
+      disabled: ""
+    }
+  }, [_vm._v("-Select-")]), _vm._v(" "), _vm._l(_vm.category, function (cat) {
+    return _c("option", {
+      domProps: {
+        value: cat.category_id
+      }
+    }, [_vm._v(_vm._s(cat.category))]);
+  })], 2)])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("Fund Type")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.L2_fundtype,
+      expression: "form.L2_fundtype"
+    }],
+    staticClass: "form-control chosen-select",
+    attrs: {
+      id: "exampleFormControlSelect1"
+    },
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "L2_fundtype", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: "",
+      disabled: ""
+    }
+  }, [_vm._v("-Select-")]), _vm._v(" "), _vm._l(_vm.fundtype, function (fund) {
+    return _c("option", {
+      domProps: {
+        value: fund.id
+      }
+    }, [_vm._v(_vm._s(fund.fundtype))]);
+  })], 2)])])]), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("Information to Supplier")]), _vm._v(" "), _c("form", {
+    staticClass: "mt-3"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("textarea", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.supplier_inst,
+      expression: "form.supplier_inst"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      rows: "3",
+      placeholder: "Information to Supplier"
+    },
+    domProps: {
+      value: _vm.form.supplier_inst
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "supplier_inst", $event.target.value);
+      }
+    }
+  })])])])]), _vm._v(" "), _vm._m(3)])])]), _vm._v(" "), _vm._m(4), _vm._v(" "), _vm._m(5), _vm._v(" "), _vm._m(6)]), _vm._v(" "), _c("div", {
+    staticClass: "form-actions"
+  }, [_c("div", {
+    staticClass: "text-right"
+  }, [_c("button", {
+    staticClass: "btn btn-info",
+    on: {
+      click: function click($event) {
+        return _vm.submit();
+      }
+    }
+  }, [_vm._v("Submit")])])])])])])])])])])])])]);
+};
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "modal-header modal-colored-header bg-success"
+  }, [_c("h4", {
+    staticClass: "modal-title",
+    attrs: {
+      id: "success-header-modalLabel"
+    }
+  }, [_vm._v("View PR\r\n                    ")]), _vm._v(" "), _c("button", {
+    staticClass: "close",
+    attrs: {
+      type: "button",
+      "data-dismiss": "modal",
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("ul", {
+    staticClass: "nav nav-pills bg-nav-pills nav-justified mb-3"
+  }, [_c("li", {
+    staticClass: "nav-item"
+  }, [_c("a", {
+    staticClass: "nav-link rounded-0 active",
+    attrs: {
+      href: "#home1",
+      "data-toggle": "tab",
+      "aria-expanded": "false"
+    }
+  }, [_c("i", {
+    staticClass: "mdi mdi-home-variant d-lg-none d-block mr-1"
+  }), _vm._v(" "), _c("span", {
+    staticClass: "d-none d-lg-block"
+  }, [_vm._v("General Information")])])]), _vm._v(" "), _c("li", {
+    staticClass: "nav-item"
+  }, [_c("a", {
+    staticClass: "nav-link rounded-0",
+    attrs: {
+      href: "#profile1",
+      "data-toggle": "tab",
+      "aria-expanded": "true"
+    }
+  }, [_c("i", {
+    staticClass: "mdi mdi-account-circle d-lg-none d-block mr-1"
+  }), _vm._v(" "), _c("span", {
+    staticClass: "d-none d-lg-block"
+  }, [_vm._v("RFQ")])])]), _vm._v(" "), _c("li", {
+    staticClass: "nav-item"
+  }, [_c("a", {
+    staticClass: "nav-link rounded-0",
+    attrs: {
+      href: "#settings1",
+      "data-toggle": "tab",
+      "aria-expanded": "false"
+    }
+  }, [_c("i", {
+    staticClass: "mdi mdi-settings-outline d-lg-none d-block mr-1"
+  }), _vm._v(" "), _c("span", {
+    staticClass: "d-none d-lg-block"
+  }, [_vm._v("ABSTRACT")])])]), _vm._v(" "), _c("li", {
+    staticClass: "nav-item"
+  }, [_c("a", {
+    staticClass: "nav-link rounded-0",
+    attrs: {
+      href: "#settings2",
+      "data-toggle": "tab",
+      "aria-expanded": "false"
+    }
+  }, [_c("i", {
+    staticClass: "mdi mdi-settings-outline d-lg-none d-block mr-1"
+  }), _vm._v(" "), _c("span", {
+    staticClass: "d-none d-lg-block"
+  }, [_vm._v("MONITORING")])])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("ABC")]), _vm._v(" "), _c("input", {
+    staticClass: "form-control",
+    attrs: {
+      type: "text"
+    }
+  })])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("Folder Link")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("input", {
+    staticClass: "form-control",
+    attrs: {
+      type: "text"
+    }
+  })])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "tab-pane",
+    attrs: {
+      id: "profile1"
+    }
+  }, [_c("p", [_vm._v("Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim\r\n                                                            justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis\r\n                                                            eu pede mollis pretium. Integer tincidunt.Cras dapibus. Vivamus elementum\r\n                                                            semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor\r\n                                                            eu, consequat vitae, eleifend ac, enim.")]), _vm._v(" "), _c("p", {
+    staticClass: "mb-0"
+  }, [_vm._v("Leggings occaecat dolor sit amet, consectetuer adipiscing elit.\r\n                                                            Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus\r\n                                                            et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis,\r\n                                                            ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa\r\n                                                            quis enim.")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "tab-pane",
+    attrs: {
+      id: "settings1"
+    }
+  }, [_c("p", [_vm._v("Food truck quinoa dolor sit amet, consectetuer adipiscing elit. Aenean\r\n                                                            commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et\r\n                                                            magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis,\r\n                                                            ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa\r\n                                                            quis enim.")]), _vm._v(" "), _c("p", {
+    staticClass: "mb-0"
+  }, [_vm._v("Donec pede justo, fringilla vel, aliquet nec, vulputate eget,\r\n                                                            arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam\r\n                                                            dictum felis eu pede mollis pretium. Integer tincidunt.Cras dapibus. Vivamus\r\n                                                            elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula,\r\n                                                            porttitor eu, consequat vitae, eleifend ac, enim.")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "tab-pane",
+    attrs: {
+      id: "settings2"
+    }
+  }, [_c("p", {
+    staticClass: "mb-0"
+  }, [_vm._v("Donec pede justo, fringilla vel, aliquet nec, vulputate eget,\r\n                                                            arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam\r\n                                                            dictum felis eu pede mollis pretium. Integer tincidunt.Cras dapibus. Vivamus\r\n                                                            elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula,\r\n                                                            porttitor eu, consequat vitae, eleifend ac, enim.")])]);
 }];
 render._withStripped = true;
 
@@ -50898,6 +51638,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('draftpr-component', __webpack_require__(/*! ./components/DraftprComponent.vue */ "./resources/js/components/DraftprComponent.vue")["default"]);
+Vue.component('prtracking-component', __webpack_require__(/*! ./components/PrTrackingComponent.vue */ "./resources/js/components/PrTrackingComponent.vue")["default"]);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -51024,6 +51765,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_DraftprComponent_vue_vue_type_template_id_bd5d6376___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_DraftprComponent_vue_vue_type_template_id_bd5d6376___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/PrTrackingComponent.vue":
+/*!*********************************************************!*\
+  !*** ./resources/js/components/PrTrackingComponent.vue ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PrTrackingComponent_vue_vue_type_template_id_3b911e09___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PrTrackingComponent.vue?vue&type=template&id=3b911e09& */ "./resources/js/components/PrTrackingComponent.vue?vue&type=template&id=3b911e09&");
+/* harmony import */ var _PrTrackingComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PrTrackingComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/PrTrackingComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _PrTrackingComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PrTrackingComponent_vue_vue_type_template_id_3b911e09___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PrTrackingComponent_vue_vue_type_template_id_3b911e09___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/PrTrackingComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/PrTrackingComponent.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/PrTrackingComponent.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PrTrackingComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./PrTrackingComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PrTrackingComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PrTrackingComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/PrTrackingComponent.vue?vue&type=template&id=3b911e09&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/PrTrackingComponent.vue?vue&type=template&id=3b911e09& ***!
+  \****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_PrTrackingComponent_vue_vue_type_template_id_3b911e09___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!../../../node_modules/vue-loader/lib??vue-loader-options!./PrTrackingComponent.vue?vue&type=template&id=3b911e09& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PrTrackingComponent.vue?vue&type=template&id=3b911e09&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_PrTrackingComponent_vue_vue_type_template_id_3b911e09___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_PrTrackingComponent_vue_vue_type_template_id_3b911e09___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
