@@ -131,13 +131,13 @@
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <h4 class="card-title">Barcode</h4>
-                                                                        <input type="text" class="form-control" v-model="barcode" readonly>
+                                                                        <input type="text" class="form-control" v-model="form.barcode" readonly>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <h4 class="card-title">ABC</h4>
-                                                                        <input type="text" class="form-control">
+                                                                        <input type="number" class="form-control" v-model="form.abc">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -153,7 +153,7 @@
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
-                                                                            <h4 class="card-title">Type</h4>
+                                                                            <h4 class="card-title">Type Procurement</h4>
                                                                             <select class="form-control chosen-select" id="exampleFormControlSelect1" v-model="form.type_procure">
                                                                             <option value="" disabled>-Select-</option>
                                                                             <option v-for="ty in type" :value="ty.id">{{ ty.type_procure }}</option>
@@ -164,12 +164,29 @@
                                                             <div class="row">
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
+                                                                    <h4 class="card-title">Procurement Description</h4>
+                                                                            <div class="form-group">
+                                                                                <textarea class="form-control" rows="3" placeholder="Purpose/Title" v-model="form.pr_description"></textarea>
+                                                                            </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                            <h4 class="card-title">Mode</h4>
+                                                                            <select class="form-control chosen-select" id="exampleFormControlSelect1" v-model="form.mode">
+                                                                            <option value=""  disabled>-Select-</option>
+                                                                            <option v-for="mo in mode" :value="mo.id">{{ mo.mode }}</option>
+                                                                            </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
                                                                     <h4 class="card-title">Purpose/Title</h4>
-                                                                        <form class="mt-3">
                                                                             <div class="form-group">
                                                                                 <textarea class="form-control" rows="3" placeholder="Purpose/Title" v-model="form.L1_title"></textarea>
                                                                             </div>
-                                                                        </form>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
@@ -182,20 +199,40 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                    <h4 class="card-title">Level</h4>
+                                                                            <select class="form-control chosen-select" id="exampleFormControlSelect1" v-model="form.level">
+                                                                            <option value=""  disabled>-Select-</option>
+                                                                            <option v-for="lev in level" :value="lev.id">{{ lev.status }}</option>
+                                                                            </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <h4 class="card-title">Purchase Request No.</h4>
+                                                                        <input type="text" class="form-control" v-model="form.pr_no">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                                 <div class="row">
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
                                                                             <h4 class="card-title">Fund Year</h4>
-                                                                                <select class="form-control chosen-select" id="exampleFormControlSelect1" v-model="form.L2_fundyear">
-                                                                                <option value=""  disabled>-Select-</option>
-                                                                                <option v-for="y in year" :value="y.id">{{ y.year }}</option>
-                                                                                </select>
+                                                                            <select class="form-control chosen-select" id="exampleFormControlSelect1" v-model="form.L2_fundyear">
+                                                                            <option value=""  disabled>-Select-</option>
+                                                                            <option v-for="y in year" :value="y.id">{{ y.year }}</option>
+                                                                            </select>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
                                                                             <h4 class="card-title">Fund Source</h4>
-                                                                            <input type="text" class="form-control" placeholder="Input Here..." v-model="form.L2_fundsource">
+                                                                            <select class="form-control chosen-select" id="exampleFormControlSelect1" v-model="form.L2_fundsource">
+                                                                            <option value=""  disabled>-Select-</option>
+                                                                            <option v-for="val in fundsource" :value="val.id">{{ val.fundsource }}</option>
+                                                                            </select>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -223,11 +260,9 @@
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
                                                                             <h4 class="card-title">Information to Supplier</h4>
-                                                                            <form class="mt-3">
                                                                                 <div class="form-group">
                                                                                     <textarea class="form-control" rows="3" placeholder="Information to Supplier" v-model="form.supplier_inst"></textarea>
                                                                                 </div>
-                                                                            </form>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-6">
@@ -242,35 +277,218 @@
                                                         </div>
                                                     </div>
                                                     <div class="tab-pane " id="profile1">
-                                                        <p>Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim
-                                                            justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis
-                                                            eu pede mollis pretium. Integer tincidunt.Cras dapibus. Vivamus elementum
-                                                            semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor
-                                                            eu, consequat vitae, eleifend ac, enim.</p>
-                                                        <p class="mb-0">Leggings occaecat dolor sit amet, consectetuer adipiscing elit.
-                                                            Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus
-                                                            et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis,
-                                                            ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa
-                                                            quis enim.</p>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <h4 class="card-title">ITB/RFQ No.</h4>
+                                                                        <div class="form-group">
+                                                                            <input type="text" class="form-control" v-model="form.rfqitb_no">
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <h4 class="card-title">RFQ/ITB</h4>
+                                                                        <div class="form-group">
+                                                                            <select class="form-control chosen-select" id="exampleFormControlSelect1" v-model="form.rfqitb">
+                                                                            <option value="">-Select-</option>
+                                                                            <option v-for="val in rfqitb" :value="val.id">{{ val.type }}</option>
+                                                                            </select>
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <h4 class="card-title">Date RFQ Created</h4>
+                                                                        <div class="form-group">
+                                                                            <input type="date" class="form-control" v-model="form.date_rfq_created">
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <h4 class="card-title">Days to be Returned</h4>
+                                                                        <div class="form-group">
+                                                                            <input type="text" class="form-control" v-model="form.days_to_be_return">
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <h4 class="card-title">Signatory</h4>
+                                                                        <div class="form-group">
+                                                                            <select class="form-control chosen-select" v-model="form.signatories">
+                                                                            <option value="">-Select-</option>
+                                                                            <option v-for="val in signatories" :value="val.id">{{ val.name }}</option>
+                                                                            </select>
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div> 
                                                     <div class="tab-pane" id="settings1">
-                                                        <p>Food truck quinoa dolor sit amet, consectetuer adipiscing elit. Aenean
-                                                            commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et
-                                                            magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis,
-                                                            ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa
-                                                            quis enim.</p>
-                                                        <p class="mb-0">Donec pede justo, fringilla vel, aliquet nec, vulputate eget,
-                                                            arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam
-                                                            dictum felis eu pede mollis pretium. Integer tincidunt.Cras dapibus. Vivamus
-                                                            elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula,
-                                                            porttitor eu, consequat vitae, eleifend ac, enim.</p>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <h4 class="card-title">Abstract No.</h4>
+                                                                        <div class="form-group">
+                                                                            <input type="text" class="form-control" v-model="form.abstract_no">
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <h4 class="card-title">Date Abstract of Canvas</h4>
+                                                                        <div class="form-group">
+                                                                            <input type="date" class="form-control" v-model="form.abstract_date">
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <h4 class="card-title">Supplier 1</h4>
+                                                                        <div class="form-group">
+                                                                            <select class="form-control chosen-select" v-model="form.supp_1">
+                                                                            <option value="">-Select-</option>
+                                                                            <option v-for="val in suppliers" :value="val.id">{{ val.business_name }}</option>
+                                                                            </select>
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <h4 class="card-title">Supplier 2</h4>
+                                                                        <div class="form-group">
+                                                                            <select class="form-control chosen-select" v-model="form.supp_2">
+                                                                            <option value="">-Select-</option>
+                                                                            <option v-for="val in suppliers" :value="val.id">{{ val.business_name }}</option>
+                                                                            </select>
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <h4 class="card-title">Supplier 3</h4>
+                                                                        <div class="form-group">
+                                                                            <select class="form-control chosen-select" v-model="form.supp_3">
+                                                                            <option value="">-Select-</option>
+                                                                            <option v-for="val in suppliers" :value="val.id">{{ val.business_name }}</option>
+                                                                            </select>
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <h4 class="card-title">Override Lowest Supplier</h4>
+                                                                        <div class="form-group">
+                                                                            <select class="form-control chosen-select" v-model="form.lowest_supp">
+                                                                            <option value="">-Select-</option>
+                                                                            <option v-for="val in suppliers" :value="val.id">{{ val.business_name }}</option>
+                                                                            </select>
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     <div class="tab-pane" id="settings2">
-                                                        <p class="mb-0">Donec pede justo, fringilla vel, aliquet nec, vulputate eget,
-                                                            arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam
-                                                            dictum felis eu pede mollis pretium. Integer tincidunt.Cras dapibus. Vivamus
-                                                            elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula,
-                                                            porttitor eu, consequat vitae, eleifend ac, enim.</p>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <h4 class="card-title">Date PR Received</h4>
+                                                                        <div class="form-group">
+                                                                            <input type="date" class="form-control" v-model="form.pr_received">
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <h4 class="card-title">Date Forwarded to Canvasser</h4>
+                                                                        <div class="form-group">
+                                                                            <input type="date" class="form-control" v-model="form.forwarded_to_canvasser">
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <h4 class="card-title">Date Canvass Return</h4>
+                                                                        <div class="form-group">
+                                                                            <input type="date" class="form-control" v-model="form.canvass_return">
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <h4 class="card-title">Date Forwarded to Budget</h4>
+                                                                        <div class="form-group">
+                                                                            <input type="date" class="form-control" v-model="form.forwarded_to_budget">
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <h4 class="card-title">Date Served to Supplier</h4>
+                                                                        <div class="form-group">
+                                                                            <input type="date" class="form-control" v-model="form.served_to_supplier">
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <h4 class="card-title">Date Forwarded to Supplier</h4>
+                                                                        <div class="form-group">
+                                                                            <input type="date" class="form-control" v-model="form.forwarded_to_supplier">
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <h4 class="card-title">Date Forwarded to Supply Office</h4>
+                                                                        <div class="form-group">
+                                                                            <input type="date" class="form-control" v-model="form.forwarded_to_supply">
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <h4 class="card-title">Date Forwarded to End User</h4>
+                                                                        <div class="form-group">
+                                                                            <input type="date" class="form-control" v-model="form.forwarded_to_user">
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <h4 class="card-title">Date Delivery</h4>
+                                                                        <div class="form-group">
+                                                                            <input type="date" class="form-control" v-model="form.delivery_date">
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <h4 class="card-title">Date Inspection</h4>
+                                                                        <div class="form-group">
+                                                                            <input type="date" class="form-control" v-model="form.inspection_date">
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                         <div class="form-actions">
@@ -292,12 +510,13 @@
 </template>
 
 <script>
+
 export default{
     props: ['data'],
     data(){
         return {
             dataLists: this.data,
-            barcode: null,
+            
             form: {
                 L1_status: null,
                 L1_office: null,
@@ -312,7 +531,34 @@ export default{
                 L1_title: null,
                 cert_by1: null,
                 cert_by2: null,
-                type_procure: null
+                type_procure: null,
+                rfqitb: null,
+                signatories: null, 
+                rfqitb_no: null,
+                abstract_no: null,
+                abstract_date: null,
+                supp_1: null,
+                supp_2: null,
+                supp_3: null,
+                lowest_supp: null,
+                pr_received: null,
+                forwarded_to_canvasser: null,
+                canvass_return: null,
+                forwarded_to_budget: null,
+                served_to_supplier: null,
+                forwarded_to_supplier: null,
+                forwarded_to_supply: null,
+                forwarded_to_user: null,
+                delivery_date: null,
+                inspection_date: null,
+                date_rfq_created: null,
+                days_to_be_return: null,
+                level: null,
+                pr_no: null,
+                pr_description: null,
+                mode: null,
+                barcode: null,
+                abc: null,
             },
             status: [],
             type: [],
@@ -320,6 +566,12 @@ export default{
             office: [],
             fundtype: [],
             year: [],
+            rfqitb: [],
+            signatories: [],
+            fundsource: [],
+            suppliers: [],
+            level: [],
+            mode: [],
         }
     },
     methods: {
@@ -327,6 +579,10 @@ export default{
         {
             console.log(dat);
             const vm = this;
+            vm.form.mode = dat.L1_modeproc;
+            vm.form.pr_description = dat.procurement_description;
+            vm.form.level = dat.L1_level;
+            vm.form.pr_no = dat.L1_trackno;
             vm.form.L1_status = dat.L1_status;
             vm.form.L1_office = dat.L1_office;
             vm.form.L2_fundyear = dat.L2_fundyear;
@@ -335,11 +591,29 @@ export default{
             vm.form.L2_fundtype = dat.L2_fundtype; 
             vm.form.type_procure = dat.type_procure;
             vm.form.supplier_inst = dat.supplier_inst;
+            vm.form.barcode = dat.id;
             vm.form.L1_title = dat.L1_title;
-            vm.barcode = dat.id;
+            vm.form.rfqitb_no = dat.L2_rfqitbno; 
+            vm.form.rfqitb = dat.L2_selectrfqitb; 
+            vm.form.abstract_no = dat.abstract_no;
+            vm.form.supp_1 = dat.supplier1;
+            vm.form.supp_2 = dat.supplier2;
+            vm.form.supp_3 = dat.supplier3;
+            vm.form.date_rfq_created = dat.date_rfq_created;
+            vm.form.days_to_be_return = dat.days_to_be_returns;
+            vm.form.abstract_date = dat.date_abstractcanv;
+            vm.form.pr_received = dat.date_received_pr; 
+            vm.form.forwarded_to_canvasser = dat.date_forwarded_canvasser; 
+            vm.form.canvass_return = dat.date_canvass_return; 
+            vm.form.forwarded_to_budget = dat.date_forwarded_budget;  
+            vm.form.served_to_supplier = dat.date_served_supplier; 
+            vm.form.forwarded_to_supplier = dat.date_forwarded_to_supplier; 
+            vm.form.forwarded_to_user = dat.date_forwarded_enduser; 
+            vm.form.delivery_date = dat.date_delivery; 
+            vm.form.inspection_date = dat.date_inspection; 
             $('#view_modal').modal('show');
             axios
-                .get('/procurement2.0/procurement/createpr')
+                .get('/procurement2.0/procurement/view/track')
                 .then(function(response){
                     vm.status = response.data.status;
                     vm.type = response.data.type;
@@ -347,11 +621,27 @@ export default{
                     vm.category = response.data.category;
                     vm.fundtype = response.data.fundtype;
                     vm.year = response.data.year;
+                    vm.rfqitb = response.data.rfqitb;
+                    vm.signatories = response.data.signatories;
+                    vm.fundsource = response.data.fundsource;
+                    vm.suppliers = response.data.suppliers;
+                    vm.level = response.data.level;
+                    vm.mode = response.data.mode;
                 })
                 .catch(function(error){
                     console.log(error)
                 })
-
+        },
+        submit(){
+            const vm = this;
+            axios
+                .post('/procurement2.0/procurement/track/update', this.form)
+                .then(function(response){
+                    location.reload();
+                })
+                .catch(function(error){
+                    console.log(error)
+                })
         },
     },
 }

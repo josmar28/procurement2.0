@@ -27,6 +27,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //PR Tracking
 Route::get('procurement/tracking', 'admin\PRtrackingCtrl@index');
+Route::get('procurement/view/track', 'admin\PRtrackingCtrl@viewTrack'); 
+Route::post('procurement/track/update', 'admin\PRtrackingCtrl@updateTrack');
 
 //Draft PR
 Route::get('procurement/draft', 'admin\DraftPRCtrl@index');

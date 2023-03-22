@@ -2042,7 +2042,6 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       dataLists: this.data,
-      barcode: null,
       form: {
         L1_status: null,
         L1_office: null,
@@ -2057,20 +2056,57 @@ __webpack_require__.r(__webpack_exports__);
         L1_title: null,
         cert_by1: null,
         cert_by2: null,
-        type_procure: null
+        type_procure: null,
+        rfqitb: null,
+        signatories: null,
+        rfqitb_no: null,
+        abstract_no: null,
+        abstract_date: null,
+        supp_1: null,
+        supp_2: null,
+        supp_3: null,
+        lowest_supp: null,
+        pr_received: null,
+        forwarded_to_canvasser: null,
+        canvass_return: null,
+        forwarded_to_budget: null,
+        served_to_supplier: null,
+        forwarded_to_supplier: null,
+        forwarded_to_supply: null,
+        forwarded_to_user: null,
+        delivery_date: null,
+        inspection_date: null,
+        date_rfq_created: null,
+        days_to_be_return: null,
+        level: null,
+        pr_no: null,
+        pr_description: null,
+        mode: null,
+        barcode: null,
+        abc: null
       },
       status: [],
       type: [],
       category: [],
       office: [],
       fundtype: [],
-      year: []
+      year: [],
+      rfqitb: [],
+      signatories: [],
+      fundsource: [],
+      suppliers: [],
+      level: [],
+      mode: []
     };
   },
   methods: {
     view: function view(dat) {
       console.log(dat);
       var vm = this;
+      vm.form.mode = dat.L1_modeproc;
+      vm.form.pr_description = dat.procurement_description;
+      vm.form.level = dat.L1_level;
+      vm.form.pr_no = dat.L1_trackno;
       vm.form.L1_status = dat.L1_status;
       vm.form.L1_office = dat.L1_office;
       vm.form.L2_fundyear = dat.L2_fundyear;
@@ -2079,16 +2115,48 @@ __webpack_require__.r(__webpack_exports__);
       vm.form.L2_fundtype = dat.L2_fundtype;
       vm.form.type_procure = dat.type_procure;
       vm.form.supplier_inst = dat.supplier_inst;
+      vm.form.barcode = dat.id;
       vm.form.L1_title = dat.L1_title;
-      vm.barcode = dat.id;
+      vm.form.rfqitb_no = dat.L2_rfqitbno;
+      vm.form.rfqitb = dat.L2_selectrfqitb;
+      vm.form.abstract_no = dat.abstract_no;
+      vm.form.supp_1 = dat.supplier1;
+      vm.form.supp_2 = dat.supplier2;
+      vm.form.supp_3 = dat.supplier3;
+      vm.form.date_rfq_created = dat.date_rfq_created;
+      vm.form.days_to_be_return = dat.days_to_be_returns;
+      vm.form.abstract_date = dat.date_abstractcanv;
+      vm.form.pr_received = dat.date_received_pr;
+      vm.form.forwarded_to_canvasser = dat.date_forwarded_canvasser;
+      vm.form.canvass_return = dat.date_canvass_return;
+      vm.form.forwarded_to_budget = dat.date_forwarded_budget;
+      vm.form.served_to_supplier = dat.date_served_supplier;
+      vm.form.forwarded_to_supplier = dat.date_forwarded_to_supplier;
+      vm.form.forwarded_to_user = dat.date_forwarded_enduser;
+      vm.form.delivery_date = dat.date_delivery;
+      vm.form.inspection_date = dat.date_inspection;
       $('#view_modal').modal('show');
-      axios.get('/procurement2.0/procurement/createpr').then(function (response) {
+      axios.get('/procurement2.0/procurement/view/track').then(function (response) {
         vm.status = response.data.status;
         vm.type = response.data.type;
         vm.office = response.data.office;
         vm.category = response.data.category;
         vm.fundtype = response.data.fundtype;
         vm.year = response.data.year;
+        vm.rfqitb = response.data.rfqitb;
+        vm.signatories = response.data.signatories;
+        vm.fundsource = response.data.fundsource;
+        vm.suppliers = response.data.suppliers;
+        vm.level = response.data.level;
+        vm.mode = response.data.mode;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    submit: function submit() {
+      var vm = this;
+      axios.post('/procurement2.0/procurement/track/update', this.form).then(function (response) {
+        location.reload();
       })["catch"](function (error) {
         console.log(error);
       });
@@ -3418,8 +3486,8 @@ var render = function render() {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.barcode,
-      expression: "barcode"
+      value: _vm.form.barcode,
+      expression: "form.barcode"
     }],
     staticClass: "form-control",
     attrs: {
@@ -3427,15 +3495,41 @@ var render = function render() {
       readonly: ""
     },
     domProps: {
-      value: _vm.barcode
+      value: _vm.form.barcode
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
-        _vm.barcode = $event.target.value;
+        _vm.$set(_vm.form, "barcode", $event.target.value);
       }
     }
-  })])]), _vm._v(" "), _vm._m(2)]), _vm._v(" "), _c("div", {
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("ABC")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.abc,
+      expression: "form.abc"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "number"
+    },
+    domProps: {
+      value: _vm.form.abc
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "abc", $event.target.value);
+      }
+    }
+  })])])]), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, [_c("div", {
     staticClass: "col-md-6"
@@ -3482,7 +3576,7 @@ var render = function render() {
     staticClass: "form-group"
   }, [_c("h4", {
     staticClass: "card-title"
-  }, [_vm._v("Type")]), _vm._v(" "), _c("select", {
+  }, [_vm._v("Type Procurement")]), _vm._v(" "), _c("select", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -3523,9 +3617,77 @@ var render = function render() {
     staticClass: "form-group"
   }, [_c("h4", {
     staticClass: "card-title"
-  }, [_vm._v("Purpose/Title")]), _vm._v(" "), _c("form", {
-    staticClass: "mt-3"
+  }, [_vm._v("Procurement Description")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("textarea", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.pr_description,
+      expression: "form.pr_description"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      rows: "3",
+      placeholder: "Purpose/Title"
+    },
+    domProps: {
+      value: _vm.form.pr_description
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "pr_description", $event.target.value);
+      }
+    }
+  })])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
   }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("Mode")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.mode,
+      expression: "form.mode"
+    }],
+    staticClass: "form-control chosen-select",
+    attrs: {
+      id: "exampleFormControlSelect1"
+    },
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "mode", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: "",
+      disabled: ""
+    }
+  }, [_vm._v("-Select-")]), _vm._v(" "), _vm._l(_vm.mode, function (mo) {
+    return _c("option", {
+      domProps: {
+        value: mo.id
+      }
+    }, [_vm._v(_vm._s(mo.mode))]);
+  })], 2)])])]), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("Purpose/Title")]), _vm._v(" "), _c("div", {
     staticClass: "form-group"
   }, [_c("textarea", {
     directives: [{
@@ -3548,7 +3710,7 @@ var render = function render() {
         _vm.$set(_vm.form, "L1_title", $event.target.value);
       }
     }
-  })])])])]), _vm._v(" "), _c("div", {
+  })])])]), _vm._v(" "), _c("div", {
     staticClass: "col-md-6"
   }, [_c("div", {
     staticClass: "form-group"
@@ -3595,6 +3757,73 @@ var render = function render() {
     staticClass: "form-group"
   }, [_c("h4", {
     staticClass: "card-title"
+  }, [_vm._v("Level")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.level,
+      expression: "form.level"
+    }],
+    staticClass: "form-control chosen-select",
+    attrs: {
+      id: "exampleFormControlSelect1"
+    },
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "level", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: "",
+      disabled: ""
+    }
+  }, [_vm._v("-Select-")]), _vm._v(" "), _vm._l(_vm.level, function (lev) {
+    return _c("option", {
+      domProps: {
+        value: lev.id
+      }
+    }, [_vm._v(_vm._s(lev.status))]);
+  })], 2)])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("Purchase Request No.")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.pr_no,
+      expression: "form.pr_no"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text"
+    },
+    domProps: {
+      value: _vm.form.pr_no
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "pr_no", $event.target.value);
+      }
+    }
+  })])])]), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
   }, [_vm._v("Fund Year")]), _vm._v(" "), _c("select", {
     directives: [{
       name: "model",
@@ -3634,28 +3863,40 @@ var render = function render() {
     staticClass: "form-group"
   }, [_c("h4", {
     staticClass: "card-title"
-  }, [_vm._v("Fund Source")]), _vm._v(" "), _c("input", {
+  }, [_vm._v("Fund Source")]), _vm._v(" "), _c("select", {
     directives: [{
       name: "model",
       rawName: "v-model",
       value: _vm.form.L2_fundsource,
       expression: "form.L2_fundsource"
     }],
-    staticClass: "form-control",
+    staticClass: "form-control chosen-select",
     attrs: {
-      type: "text",
-      placeholder: "Input Here..."
-    },
-    domProps: {
-      value: _vm.form.L2_fundsource
+      id: "exampleFormControlSelect1"
     },
     on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.form, "L2_fundsource", $event.target.value);
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "L2_fundsource", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
       }
     }
-  })])])]), _vm._v(" "), _c("div", {
+  }, [_c("option", {
+    attrs: {
+      value: "",
+      disabled: ""
+    }
+  }, [_vm._v("-Select-")]), _vm._v(" "), _vm._l(_vm.fundsource, function (val) {
+    return _c("option", {
+      domProps: {
+        value: val.id
+      }
+    }, [_vm._v(_vm._s(val.fundsource))]);
+  })], 2)])])]), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, [_c("div", {
     staticClass: "col-md-6"
@@ -3743,9 +3984,7 @@ var render = function render() {
     staticClass: "form-group"
   }, [_c("h4", {
     staticClass: "card-title"
-  }, [_vm._v("Information to Supplier")]), _vm._v(" "), _c("form", {
-    staticClass: "mt-3"
-  }, [_c("div", {
+  }, [_vm._v("Information to Supplier")]), _vm._v(" "), _c("div", {
     staticClass: "form-group"
   }, [_c("textarea", {
     directives: [{
@@ -3768,7 +4007,689 @@ var render = function render() {
         _vm.$set(_vm.form, "supplier_inst", $event.target.value);
       }
     }
-  })])])])]), _vm._v(" "), _vm._m(3)])])]), _vm._v(" "), _vm._m(4), _vm._v(" "), _vm._m(5), _vm._v(" "), _vm._m(6)]), _vm._v(" "), _c("div", {
+  })])])]), _vm._v(" "), _vm._m(2)])])]), _vm._v(" "), _c("div", {
+    staticClass: "tab-pane",
+    attrs: {
+      id: "profile1"
+    }
+  }, [_c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("ITB/RFQ No.")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.rfqitb_no,
+      expression: "form.rfqitb_no"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text"
+    },
+    domProps: {
+      value: _vm.form.rfqitb_no
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "rfqitb_no", $event.target.value);
+      }
+    }
+  })])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("RFQ/ITB")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.rfqitb,
+      expression: "form.rfqitb"
+    }],
+    staticClass: "form-control chosen-select",
+    attrs: {
+      id: "exampleFormControlSelect1"
+    },
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "rfqitb", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: ""
+    }
+  }, [_vm._v("-Select-")]), _vm._v(" "), _vm._l(_vm.rfqitb, function (val) {
+    return _c("option", {
+      domProps: {
+        value: val.id
+      }
+    }, [_vm._v(_vm._s(val.type))]);
+  })], 2)])])])]), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("Date RFQ Created")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.date_rfq_created,
+      expression: "form.date_rfq_created"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.form.date_rfq_created
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "date_rfq_created", $event.target.value);
+      }
+    }
+  })])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("Days to be Returned")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.days_to_be_return,
+      expression: "form.days_to_be_return"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text"
+    },
+    domProps: {
+      value: _vm.form.days_to_be_return
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "days_to_be_return", $event.target.value);
+      }
+    }
+  })])])])]), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-12"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("Signatory")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.signatories,
+      expression: "form.signatories"
+    }],
+    staticClass: "form-control chosen-select",
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "signatories", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: ""
+    }
+  }, [_vm._v("-Select-")]), _vm._v(" "), _vm._l(_vm.signatories, function (val) {
+    return _c("option", {
+      domProps: {
+        value: val.id
+      }
+    }, [_vm._v(_vm._s(val.name))]);
+  })], 2)])])])])]), _vm._v(" "), _c("div", {
+    staticClass: "tab-pane",
+    attrs: {
+      id: "settings1"
+    }
+  }, [_c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("Abstract No.")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.abstract_no,
+      expression: "form.abstract_no"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text"
+    },
+    domProps: {
+      value: _vm.form.abstract_no
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "abstract_no", $event.target.value);
+      }
+    }
+  })])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("Date Abstract of Canvas")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.abstract_date,
+      expression: "form.abstract_date"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.form.abstract_date
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "abstract_date", $event.target.value);
+      }
+    }
+  })])])])]), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("Supplier 1")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.supp_1,
+      expression: "form.supp_1"
+    }],
+    staticClass: "form-control chosen-select",
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "supp_1", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: ""
+    }
+  }, [_vm._v("-Select-")]), _vm._v(" "), _vm._l(_vm.suppliers, function (val) {
+    return _c("option", {
+      domProps: {
+        value: val.id
+      }
+    }, [_vm._v(_vm._s(val.business_name))]);
+  })], 2)])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("Supplier 2")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.supp_2,
+      expression: "form.supp_2"
+    }],
+    staticClass: "form-control chosen-select",
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "supp_2", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: ""
+    }
+  }, [_vm._v("-Select-")]), _vm._v(" "), _vm._l(_vm.suppliers, function (val) {
+    return _c("option", {
+      domProps: {
+        value: val.id
+      }
+    }, [_vm._v(_vm._s(val.business_name))]);
+  })], 2)])])])]), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("Supplier 3")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.supp_3,
+      expression: "form.supp_3"
+    }],
+    staticClass: "form-control chosen-select",
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "supp_3", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: ""
+    }
+  }, [_vm._v("-Select-")]), _vm._v(" "), _vm._l(_vm.suppliers, function (val) {
+    return _c("option", {
+      domProps: {
+        value: val.id
+      }
+    }, [_vm._v(_vm._s(val.business_name))]);
+  })], 2)])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("Override Lowest Supplier")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.lowest_supp,
+      expression: "form.lowest_supp"
+    }],
+    staticClass: "form-control chosen-select",
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "lowest_supp", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: ""
+    }
+  }, [_vm._v("-Select-")]), _vm._v(" "), _vm._l(_vm.suppliers, function (val) {
+    return _c("option", {
+      domProps: {
+        value: val.id
+      }
+    }, [_vm._v(_vm._s(val.business_name))]);
+  })], 2)])])])])]), _vm._v(" "), _c("div", {
+    staticClass: "tab-pane",
+    attrs: {
+      id: "settings2"
+    }
+  }, [_c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("Date PR Received")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.pr_received,
+      expression: "form.pr_received"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.form.pr_received
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "pr_received", $event.target.value);
+      }
+    }
+  })])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("Date Forwarded to Canvasser")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.forwarded_to_canvasser,
+      expression: "form.forwarded_to_canvasser"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.form.forwarded_to_canvasser
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "forwarded_to_canvasser", $event.target.value);
+      }
+    }
+  })])])])]), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("Date Canvass Return")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.canvass_return,
+      expression: "form.canvass_return"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.form.canvass_return
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "canvass_return", $event.target.value);
+      }
+    }
+  })])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("Date Forwarded to Budget")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.forwarded_to_budget,
+      expression: "form.forwarded_to_budget"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.form.forwarded_to_budget
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "forwarded_to_budget", $event.target.value);
+      }
+    }
+  })])])])]), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("Date Served to Supplier")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.served_to_supplier,
+      expression: "form.served_to_supplier"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.form.served_to_supplier
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "served_to_supplier", $event.target.value);
+      }
+    }
+  })])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("Date Forwarded to Supplier")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.forwarded_to_supplier,
+      expression: "form.forwarded_to_supplier"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.form.forwarded_to_supplier
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "forwarded_to_supplier", $event.target.value);
+      }
+    }
+  })])])])]), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("Date Forwarded to Supply Office")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.forwarded_to_supply,
+      expression: "form.forwarded_to_supply"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.form.forwarded_to_supply
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "forwarded_to_supply", $event.target.value);
+      }
+    }
+  })])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("Date Forwarded to End User")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.forwarded_to_user,
+      expression: "form.forwarded_to_user"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.form.forwarded_to_user
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "forwarded_to_user", $event.target.value);
+      }
+    }
+  })])])])]), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("Date Delivery")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.delivery_date,
+      expression: "form.delivery_date"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.form.delivery_date
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "delivery_date", $event.target.value);
+      }
+    }
+  })])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("Date Inspection")]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.inspection_date,
+      expression: "form.inspection_date"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.form.inspection_date
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "inspection_date", $event.target.value);
+      }
+    }
+  })])])])])])]), _vm._v(" "), _c("div", {
     staticClass: "form-actions"
   }, [_c("div", {
     staticClass: "text-right"
@@ -3866,21 +4787,6 @@ var staticRenderFns = [function () {
     staticClass: "form-group"
   }, [_c("h4", {
     staticClass: "card-title"
-  }, [_vm._v("ABC")]), _vm._v(" "), _c("input", {
-    staticClass: "form-control",
-    attrs: {
-      type: "text"
-    }
-  })])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "col-md-6"
-  }, [_c("div", {
-    staticClass: "form-group"
-  }, [_c("h4", {
-    staticClass: "card-title"
   }, [_vm._v("Folder Link")]), _vm._v(" "), _c("div", {
     staticClass: "form-group"
   }, [_c("input", {
@@ -3889,39 +4795,6 @@ var staticRenderFns = [function () {
       type: "text"
     }
   })])])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "tab-pane",
-    attrs: {
-      id: "profile1"
-    }
-  }, [_c("p", [_vm._v("Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim\r\n                                                            justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis\r\n                                                            eu pede mollis pretium. Integer tincidunt.Cras dapibus. Vivamus elementum\r\n                                                            semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor\r\n                                                            eu, consequat vitae, eleifend ac, enim.")]), _vm._v(" "), _c("p", {
-    staticClass: "mb-0"
-  }, [_vm._v("Leggings occaecat dolor sit amet, consectetuer adipiscing elit.\r\n                                                            Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus\r\n                                                            et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis,\r\n                                                            ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa\r\n                                                            quis enim.")])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "tab-pane",
-    attrs: {
-      id: "settings1"
-    }
-  }, [_c("p", [_vm._v("Food truck quinoa dolor sit amet, consectetuer adipiscing elit. Aenean\r\n                                                            commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et\r\n                                                            magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis,\r\n                                                            ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa\r\n                                                            quis enim.")]), _vm._v(" "), _c("p", {
-    staticClass: "mb-0"
-  }, [_vm._v("Donec pede justo, fringilla vel, aliquet nec, vulputate eget,\r\n                                                            arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam\r\n                                                            dictum felis eu pede mollis pretium. Integer tincidunt.Cras dapibus. Vivamus\r\n                                                            elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula,\r\n                                                            porttitor eu, consequat vitae, eleifend ac, enim.")])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "tab-pane",
-    attrs: {
-      id: "settings2"
-    }
-  }, [_c("p", {
-    staticClass: "mb-0"
-  }, [_vm._v("Donec pede justo, fringilla vel, aliquet nec, vulputate eget,\r\n                                                            arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam\r\n                                                            dictum felis eu pede mollis pretium. Integer tincidunt.Cras dapibus. Vivamus\r\n                                                            elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula,\r\n                                                            porttitor eu, consequat vitae, eleifend ac, enim.")])]);
 }];
 render._withStripped = true;
 
