@@ -1,87 +1,100 @@
 <template>
     <div class="col-12">
         <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">Draft PR List</h4>
-                                    <div style="margin-bottom:20px;">
-                                        <button type="button"
-                                        class="btn waves-effect waves-light btn-rounded btn-success" @click="create_pr()">Create PR</button>
+        <div class="card-body">
+            <vue-confirm-dialog></vue-confirm-dialog>
+            <h4 class="card-title">Draft PR List</h4>
+                <div style="margin-bottom:20px;">
+                    <button type="button"
+                    class="btn waves-effect waves-light btn-rounded btn-success" @click="create_pr()">Create PR</button>
+                </div>
+            <div class="table-responsive">
+                <font size="2">
+                    <table id="zero_config" class="table table-striped table-bordered no-wrap">
+                        <thead>
+                            <tr>
+                                <th>Options</th>
+                                <th>Barcode</th>
+                                <th>Status</th>
+                                <th>Office</th>
+                                <th>Procurement Title</th>
+                                <th>Procurement Type</th>
+                                <th>Pruchase Request No.</th>
+                                <th>Category</th>
+                                <th>Mode</th>
+                                <th>Date Receive</th>
+                                <th>Date Forwarded to Enduser</th>
+                                <th>Requested By</th>
+                                <th>Approved By</th>
+                                <th>Certified By</th>
+                                <th>Certified By</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                    
+                            <tr v-for="dat in dataLists" :key="dat.id">
+                                <td> 
+                                    <div class="btn-group">
+                                        <button type="button" class="btn dropdown-toggle"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <button class="dropdown-item" type="button" @click="view(dat)"><i class="far fa-edit"></i> View/Edit</button>
+                                            <button class="dropdown-item" type="button" @click="remove(dat)"><i class="far fa-trash-alt"></i> Delete</button>
+                                            <button class="dropdown-item" type="button"><i class="fas fa-file-pdf"></i> PR</button>
+                                        </div>
                                     </div>
-                                <div class="table-responsive">
-                                        <table id="zero_config" class="table table-striped table-bordered no-wrap">
-                                            <thead>
-                                                <tr>
-                                                    <th>Options</th>
-                                                    <th>Barcode</th>
-                                                    <th>Status</th>
-                                                    <th>Office</th>
-                                                    <th>Procurement Title</th>
-                                                    <th>Procurement Type</th>
-                                                    <th>Pruchase Request No.</th>
-                                                    <th>Category</th>
-                                                    <th>Mode</th>
-                                                    <th>Date Receive</th>
-                                                    <th>Date Forwarded to Enduser</th>
-                                                    <th>Requested By</th>
-                                                    <th>Approved By</th>
-                                                    <th>Certified By</th>
-                                                    <th>Certified By</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                        
-                                                <tr v-for="dat in dataLists" :key="dat.id">
-                                                    <td> 
-                                                        <button type="button"
-                                                        class="btn waves-effect waves-light btn-rounded btn-success" @click="show_item(dat.id)">Items</button>
-                                                    </td>
-                                                    <td>{{dat.id}}</td>
-                                                    <td>{{dat.status}}</td>
-                                                    <td>{{dat.office}}</td>
-                                                    <td style="max-width:400px; text-overflow: ellipsis; overflow: hidden;">{{dat.L1_title}}</td>
-                                                    <td>{{dat.procure_type}}</td>
-                                                    <td>{{dat.L1_trackno}}</td>
-                                                    <td>{{dat.category}}</td>
-                                                    <td>{{dat.mode}}</td>
-                                                    <td>{{dat.date_received_pr}}</td>
-                                                    <td>{{dat.date_forwarded_enduser}}</td>
-                                                    <td>{{dat.req_name}}</td>
-                                                    <td>{{dat.app_name}}</td>
-                                                    <td>{{dat.cert1_name}}</td>
-                                                    <td>{{dat.cert2_name}}</td>
-                                                </tr>
-                                            </tbody>
-                                            <tfoot>
-                                                <tr>
-                                                    <th>Options</th>
-                                                    <th>Barcode</th>
-                                                    <th>Status</th>
-                                                    <th>Office</th>
-                                                    <th>Procurement Title</th>
-                                                    <th>Procurement Type</th>
-                                                    <th>Pruchase Request No.</th>
-                                                    <th>Category</th>
-                                                    <th>Mode</th>
-                                                    <th>Date Receive</th>
-                                                    <th>Date Forwarded to Enduser</th>
-                                                    <th>Requested By</th>
-                                                    <th>Approved By</th>
-                                                    <th>Certified By</th>
-                                                    <th>Certified By</th>
-                                                </tr>
-                                            </tfoot>
-                                        </table>
-                                </div>
-                            </div>
+                                    <button type="button"
+                                    class="btn waves-effect waves-light btn-rounded btn-success" @click="show_item(dat.id)">Items</button>
+                                </td>
+                                <td>{{dat.id}}</td>
+                                <td>{{dat.status}}</td>
+                                <td>{{dat.office}}</td>
+                                <td style="white-space:normal;">{{dat.L1_title}}</td>
+                                <td>{{dat.procure_type}}</td>
+                                <td>{{dat.L1_trackno}}</td>
+                                <td>{{dat.category}}</td>
+                                <td>{{dat.mode}}</td>
+                                <td>{{dat.date_received_pr}}</td>
+                                <td>{{dat.date_forwarded_enduser}}</td>
+                                <td>{{dat.req_name}}</td>
+                                <td>{{dat.app_name}}</td>
+                                <td>{{dat.cert1_name}}</td>
+                                <td>{{dat.cert2_name}}</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Options</th>
+                                <th>Barcode</th>
+                                <th>Status</th>
+                                <th>Office</th>
+                                <th>Procurement Title</th>
+                                <th>Procurement Type</th>
+                                <th>Pruchase Request No.</th>
+                                <th>Category</th>
+                                <th>Mode</th>
+                                <th>Date Receive</th>
+                                <th>Date Forwarded to Enduser</th>
+                                <th>Requested By</th>
+                                <th>Approved By</th>
+                                <th>Certified By</th>
+                                <th>Certified By</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </font>
+            </div>
+        </div>
         </div>
         <div id="create_item_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="success-header-modalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                     <div class="modal-header modal-colored-header bg-success">
-                                                        <h4 class="modal-title" id="success-header-modalLabel">Add Item
-                                                        </h4>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-hidden="true">×</button>
+                                        <h4 class="modal-title" id="success-header-modalLabel">Add Item
+                                        </h4>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                            aria-hidden="true">×</button>
                                     </div>
                                     <div class="modal-body">
                                         <div class="row">
@@ -175,10 +188,10 @@
                     <div class="modal-dialog modal-full-width">
                             <div class="modal-content">
                                     <div class="modal-header modal-colored-header bg-success">
-                                                        <h4 class="modal-title" id="success-header-modalLabel">Add Item
-                                                        </h4>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-hidden="true">×</button>
+                                        <h4 class="modal-title" id="success-header-modalLabel">Add Item
+                                        </h4>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                            aria-hidden="true">×</button>
                                     </div>
                                     <div class="modal-body">
                                         <div class="container-fluid">
@@ -212,7 +225,7 @@
                                                                                                 <td>{{ dataShow.id }}</td>
                                                                                                 <td>{{ dataShow.status }}</td>
                                                                                                 <td>{{ dataShow.office}}</td>
-                                                                                                <td style="max-width:400px; text-overflow: ellipsis; overflow: hidden;">{{ dataShow.L1_title }}</td>
+                                                                                                <td style="white-space:normal;">{{ dataShow.L1_title }}</td>
                                                                                                 <td>{{ dataShow.procure_type }}</td>
                                                                                                 <td>{{ dataShow.L1_trackno }}</td>
                                                                                                 <td>{{ dataShow.category }}</td>
@@ -322,10 +335,10 @@
                     <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                     <div class="modal-header modal-colored-header bg-success">
-                                                        <h4 class="modal-title" id="success-header-modalLabel">Create PR
-                                                        </h4>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-hidden="true">×</button>
+                                        <h4 class="modal-title" id="success-header-modalLabel">Create PR
+                                        </h4>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                            aria-hidden="true">×</button>
                                     </div>
                                     <div class="modal-body">
                                         <div class="row">
@@ -334,10 +347,11 @@
                                                         <div class="card-body">
                                                                 <div class="form-body">
                                                                     <div class="row">
+                                                                        <input type="hidden" class="form-control" placeholder="Input Here..." v-model="form.id">
                                                                         <div class="col-md-6">
                                                                             <div class="form-group">
                                                                             <h4 class="card-title">Status</h4>
-                                                                                <select class="form-control chosen-select" id="exampleFormControlSelect1" v-model="form.L1_status">
+                                                                                <select class="form-control chosen-select" id="exampleFormControlSelect1" v-model="form.L1_status" disabled>
                                                                                 <option value="" selected disabled>-Select-</option>
                                                                                 <option v-for="stat in status" :value="stat.id">{{ stat.status }}</option>
                                                                                 </select>
@@ -380,7 +394,7 @@
                                                                                 <h4 class="card-title">Fund Year</h4>
                                                                                     <select class="form-control chosen-select" id="exampleFormControlSelect1" v-model="form.L2_fundyear">
                                                                                     <option value="" selected disabled>-Select-</option>
-                                                                                    <option v-for="n in year" :value="n">{{ n }}</option>
+                                                                                    <option v-for="y in year" :value="y.id">{{ y.year }}</option>
                                                                                     </select>
                                                                             </div>
                                                                         </div>
@@ -425,11 +439,9 @@
                                                                         <div class="col-md-6">
                                                                             <div class="form-group">
                                                                                 <h4 class="card-title">Date Prepared</h4>
-                                                                            
                                                                                     <div class="form-group">
                                                                                         <input type="datetime-local" class="form-control" v-model="form.date_prep_pr_enduser">
                                                                                     </div>
-                                                                            
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -502,10 +514,11 @@ export default{
             category: [],
             office: [],
             fundtype: [],
-            year: [2020,2021,2022,2023],
+            year: [],
             dataShow: [],
             itemShow: [],
             form: {
+                id:null,
                 L1_status: null,
                 L1_office: null,
                 L2_fundyear: null,
@@ -567,15 +580,32 @@ export default{
         },
         create_pr() {
             const vm = this;
+            vm.form.id = null,
+            vm.form.L1_status = 3,
+            vm.form.L1_office = null,
+            vm.form.L2_fundyear = null,
+            vm.form.L2_fundsource = null,
+            vm.form.L1_typeproc = null,
+            vm.form.L2_fundtype = null,
+            vm.form.supplier_inst = null,
+            vm.form.date_prep_pr_enduser = null,
+            vm.form.requested_by = null,
+            vm.form.approved_by = null, 
+            vm.form.L1_title = null,
+            vm.form.cert_by1 = null,
+            vm.form.cert_by2 = null,
+            vm.form.type_procure = null
             $('#createpr_modal').modal('show');
             axios
                 .get('/procurement2.0/procurement/createpr')
                 .then(function(response){
+                    // console.log(response)
                     vm.status = response.data.status;
                     vm.type = response.data.type;
                     vm.office = response.data.office;
                     vm.category = response.data.category;
                     vm.fundtype = response.data.fundtype;
+                    vm.year = response.data.year;
                 })
                 .catch(function(error){
                     console.log(error)
@@ -652,7 +682,73 @@ export default{
                 .catch(function(error){
                     console.log(error)
                 })
+        },
+        view(data){
+            // console.log(data)
+            const vm = this;
+            $('#createpr_modal').modal('show');
+                vm.form.id = data.id,
+                vm.form.L1_status = data.L1_status,
+                vm.form.L1_office = data.L1_office,
+                vm.form.L2_fundyear = data.L2_fundyear,
+                vm.form.L2_fundsource = data.L2_fundsource,
+                vm.form.L1_typeproc = data.L1_typeproc,
+                vm.form.L2_fundtype = data.L2_fundtype,
+                vm.form.supplier_inst = data.supplier_inst,
+                vm.form.date_prep_pr_enduser = data.date_prep_pr_enduser,
+                vm.form.requested_by = data.requested_by,
+                vm.form.approved_by = data.approved_by,
+                vm.form.L1_title = data.L1_title,
+                vm.form.cert_by1 = data.cert_by1,
+                vm.form.cert_by2 = data.cert_by2,
+                vm.form.type_procure = data.type_procure
+                axios
+                .get('/procurement2.0/procurement/createpr')
+                .then(function(response){
+                    vm.status = response.data.status;
+                    vm.type = response.data.type;
+                    vm.office = response.data.office;
+                    vm.category = response.data.category;
+                    vm.fundtype = response.data.fundtype;
+                    vm.year = response.data.year;
+                })
+                .catch(function(error){
+                    console.log(error)
+                })
+        },
+        remove(dat){
+            this.$confirm(
+        {
+          message: 'Are you sure?',
+          button: {
+            no: 'No',
+            yes: 'Yes'
+          },
+          /**
+          * Callback Function
+          * @param {Boolean} confirm
+          */
+          callback: confirm => {
+            if (confirm) {
+                axios
+                .post('/procurement2.0/procurement/remove/draft',{
+                    draft_id : dat.id
+                })
+                .then(function(response){
+                    //console.log(response.data.status)
+                    if(response.data.status == 'updated')
+                        {
+                            location.reload();
+                        }
+                })
+                .catch(function(error){
+                    console.log(error)
+                })
+                }
+            }
         }
+        )
+        },
         
     }
 

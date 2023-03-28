@@ -258,7 +258,7 @@
                                 aria-expanded="false"><i data-feather="grid" class="feather-icon"></i><span
                                     class="hide-menu">App </span></a>
                             <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                                <li class="sidebar-item"><a href="form-input-grid.html" class="sidebar-link"><span
+                                <li class="sidebar-item"><a href="{{ asset('procurement/ppmp') }}" class="sidebar-link"><span
                                             class="hide-menu"> PPMP
                                         </span></a>
                                 </li>

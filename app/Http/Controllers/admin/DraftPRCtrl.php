@@ -42,6 +42,7 @@ class DraftPRCtrl extends Controller
         ->leftJoin('signatories as cert_by1','procure_main.cert_by1','=','cert_by1.id')
         ->leftJoin('signatories as cert_by2','procure_main.cert_by2','=','cert_by2.id')
         ->where('procure_main.L1_status','3')
+        ->where('procure_main.void',1)
         ->orderby('procure_main.id','desc')
         ->get();
         
@@ -80,8 +81,11 @@ class DraftPRCtrl extends Controller
 
     public function addPR (Request $req)
     {
+        $match = array(
+            'id' => $req->id
+        );
        $data = $req->all();
-       $data = ProcureMain::create($data);
+       $data = ProcureMain::updateOrCreate($match,$data);
 
         return response()->json([
         'data' => $data
@@ -116,7 +120,6 @@ class DraftPRCtrl extends Controller
         ->orderby('procure_main.id','desc')
         ->first();
 
-        
         return response()->json([
             'items' => $items,
             'info' => $data
@@ -162,6 +165,21 @@ class DraftPRCtrl extends Controller
 
         return response()->json([
             'data' => $data
+        ]);
+    }
+
+    public function removeDraft(Request $req)
+    {
+        $data = ProcureMain::find($req->draft_id);
+
+        if($data)
+        {
+            $data->update([
+                'void' => 0
+            ]);
+        }
+        return response()->json([
+            'status' => 'updated'
         ]);
     }
 }

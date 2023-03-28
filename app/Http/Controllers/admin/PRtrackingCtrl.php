@@ -36,7 +36,7 @@ class PRtrackingCtrl extends Controller
 
     public function index()
     {
-        $user = Auth::user()->id;
+        $user = Auth::user();
         $data = array();
 
         $data = ProcureMain::select('procure_main.*','office.office as office','procurement_mode.mode as mode','procure_status.status as status','category.category as category',
@@ -46,8 +46,9 @@ class PRtrackingCtrl extends Controller
                 ->leftJoin('procure_status','procure_main.L1_status','=','procure_status.id')
                 ->leftJoin('category','procure_main.L1_typeproc','=','category.category_id')
                 ->leftJoin('procure_type','procure_main.type_procure','=','procure_type.id')
+                ->where('procure_main.void',1)
+                ->where('procure_main.L1_office',$user->office)
                 ->get();
-
 
         return view('admin.prtracking',[
             'data' => $data
@@ -86,6 +87,66 @@ class PRtrackingCtrl extends Controller
     }
     public function updateTrack(Request $req)
     {
-        dd($req->all());
+        $data = array(
+            'type_procure' => $req->type_procure,
+            'L1_trackno' => $req->pr_no,
+            'L1_office' => $req->L1_office,
+            'L1_typeproc' => $req->L1_typeproc,
+            'L1_modeproc' => $req->mode,
+            'L1_abc' => $req->abc,
+            'supplier_inst' => $req->supplier_inst,
+            'procurement_description' => $req->pr_description,
+            'L1_level' => $req->level,
+            'L1_status' => $req->L1_status,
+            'date_abstractcanv' => $req->abstract_date,
+            'L2_fundsource' => $req->L2_fundsource,
+            'L2_fundyear' => $req->L2_fundyear,
+            'L2_selectrfqitb' => $req->rfqitb,
+            'L2_fundtype' => $req->L2_fundtype,
+            'L1_title' => $req->L1_title,
+            'L2_rfqitbno' => $req->rfqitb_no,
+            'date_delivery' => $req->delivery_date,
+            'date_inspection' => $req->inspection_date,
+            'supplier1' => $req->supp_1,
+            'supplier2' => $req->supp_2,
+            'supplier3' => $req->supp_3,
+            'override_lowest_supplier' => $req->lowest_supp,
+            'date_forwarded_budget' => $req->forwarded_to_budget,
+            'date_received_pr' => $req->pr_received,
+            'date_forwarded_canvasser' => $req->forwarded_to_canvasser,
+            'date_served_supplier' => $req->served_to_supplier,
+            'date_canvass_return' => $req->canvass_return,
+            'date_forwarded_enduser' => $req->forwarded_to_user,
+            'date_forwarded_to_supplier' => $req->forwarded_to_supplier,
+            'days_to_be_return' => $req->days_to_be_return,
+            'abstract_no' => $req->abstract_no,
+            'date_rfq_created' => $req->date_rfq_created,
+            'rfq_sig' => $req->signatories,
+        );
+
+        $update = ProcureMain::find($req->barcode);
+
+        if($update)
+        {
+            $update->update($data);
+        }
+        return response()->json([
+            'status' => 'updated'
+        ]);
+    }
+
+    public function remove (Request $req)
+    {
+        $data = ProcureMain::find($req->pr_id);
+
+        if($data)
+        {
+            $data->update([
+                'void' => 0
+            ]);
+        }
+        return response()->json([
+            'status' => 'updated'
+        ]);
     }
 }

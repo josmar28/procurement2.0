@@ -1,9 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+</style>
 <div id="app">
-        <prtracking-component :data="{{ $data }}" ></prtracking-component>
-        
+        <ppmp-component :data="{{ $data }}" ></ppmp-component>
 </div>
 
 @section('js')

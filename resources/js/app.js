@@ -18,9 +18,14 @@ window.Vue = require('vue');
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+import VueConfirmDialog from 'vue-confirm-dialog'
+
+Vue.use(VueConfirmDialog)
+Vue.component('vue-confirm-dialog', VueConfirmDialog.default)
 
 Vue.component('draftpr-component', require('./components/DraftprComponent.vue').default); 
 Vue.component('prtracking-component', require('./components/PrTrackingComponent.vue').default);
+Vue.component('ppmp-component', require('./components/PpmpComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

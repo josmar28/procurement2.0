@@ -2,6 +2,7 @@
 <div class="container-fluid">
     <div class="row">
             <div class="col-12">
+                <vue-confirm-dialog></vue-confirm-dialog>
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Procurement Tracking</h4>
@@ -32,7 +33,7 @@
                                                             </button>
                                                             <div class="dropdown-menu dropdown-menu-right">
                                                                 <button class="dropdown-item" type="button" @click="view(dat)"><i class="far fa-edit"></i> View/Edit</button>
-                                                                <button class="dropdown-item" type="button"><i class="far fa-trash-alt"></i> Delete</button>
+                                                                <button class="dropdown-item" type="button" @click="remove(dat)"><i class="far fa-trash-alt"></i> Delete</button>
                                                                 <button class="dropdown-item" type="button"><i class="fas fa-file-pdf"></i> PR</button>
                                                                 <button class="dropdown-item" type="button"><i class="fas fa-file-pdf"></i> RFQ</button>
                                                                 <button class="dropdown-item" type="button"><i class="fas fa-file-pdf"></i> QA</button>
@@ -43,7 +44,7 @@
                                                     <td>{{dat.id}}</td>
                                                     <td>{{dat.status}}</td>
                                                     <td>{{dat.office}}</td>
-                                                    <td style="max-width:400px; text-overflow: ellipsis; overflow: hidden;">{{dat.L1_title}}</td>
+                                                    <td style="white-space:normal;">{{dat.L1_title}}</td>
                                                     <td>{{dat.procure_type}}</td>
                                                     <td>{{dat.L1_trackno}}</td>
                                                     <td>{{dat.category}}</td>
@@ -510,8 +511,9 @@
 </template>
 
 <script>
-
+import ModalDialog from './ModalDialog.vue'
 export default{
+    
     props: ['data'],
     data(){
         return {
@@ -525,12 +527,7 @@ export default{
                 L1_typeproc: null,
                 L2_fundtype: null,
                 supplier_inst: null,
-                date_prep_pr_enduser: null,
-                requested_by: null,
-                approved_by: null,
                 L1_title: null,
-                cert_by1: null,
-                cert_by2: null,
                 type_procure: null,
                 rfqitb: null,
                 signatories: null, 
@@ -600,7 +597,7 @@ export default{
             vm.form.supp_2 = dat.supplier2;
             vm.form.supp_3 = dat.supplier3;
             vm.form.date_rfq_created = dat.date_rfq_created;
-            vm.form.days_to_be_return = dat.days_to_be_returns;
+            vm.form.days_to_be_return = dat.days_to_be_return;
             vm.form.abstract_date = dat.date_abstractcanv;
             vm.form.pr_received = dat.date_received_pr; 
             vm.form.forwarded_to_canvasser = dat.date_forwarded_canvasser; 
@@ -609,8 +606,11 @@ export default{
             vm.form.served_to_supplier = dat.date_served_supplier; 
             vm.form.forwarded_to_supplier = dat.date_forwarded_to_supplier; 
             vm.form.forwarded_to_user = dat.date_forwarded_enduser; 
-            vm.form.delivery_date = dat.date_delivery; 
+            vm.form.delivery_date = dat.date_delivery;  
             vm.form.inspection_date = dat.date_inspection; 
+            vm.form.lowest_supp = dat.override_lowest_supplier; 
+            vm.form.abc = dat.L1_abc;
+            vm.form.signatories= dat.rfq_sig;
             $('#view_modal').modal('show');
             axios
                 .get('/procurement2.0/procurement/view/track')
@@ -637,11 +637,49 @@ export default{
             axios
                 .post('/procurement2.0/procurement/track/update', this.form)
                 .then(function(response){
-                    location.reload();
+                    console.log(response);
+                    if(response.data.status == 'updated')
+                    {
+                        location.reload();
+                    }
                 })
                 .catch(function(error){
                     console.log(error)
                 })
+        },
+        remove(dat)
+        {
+            this.$confirm(
+            {
+            message: 'Are you sure?',
+            button: {
+                no: 'No',
+                yes: 'Yes'
+            },
+            /**
+             * Callback Function
+             * @param {Boolean} confirm
+             */
+            callback: confirm => {
+                if (confirm) {
+                    axios
+                    .post('/procurement2.0/procurement/remove/pr',{
+                        pr_id : dat.id
+                    })
+                    .then(function(response){
+                        //console.log(response.data.status)
+                        if(response.data.status == 'updated')
+                            {
+                                location.reload();
+                            }
+                    })
+                    .catch(function(error){
+                        console.log(error)
+                    })
+                    }
+                }
+            }
+            )
         },
     },
 }
