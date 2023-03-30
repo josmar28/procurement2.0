@@ -52,7 +52,7 @@ class LoginController extends Controller
                 return redirect()->route('home');
             } else {
                 return redirect()->route('login')
-                ->with('errors','Username or Password are Incorrect.');
+                ->with('errors','Username or Password is Incorrect.');
             }
         }
          else {

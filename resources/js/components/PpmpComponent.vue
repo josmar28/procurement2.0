@@ -109,7 +109,7 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header modal-colored-header bg-success">
-                        <h4 class="modal-title" id="success-header-modalLabel">Add PPMP
+                        <h4 class="modal-title" id="success-header-modalLabel"><p v-if="form.id">View PPMP</p><p v-else>Add PPMP</p> 
                         </h4>
                         <button type="button" class="close" data-dismiss="modal"
                             aria-hidden="true">×</button>
@@ -270,7 +270,6 @@
                                 </div>
                         </div>        
                     </div> 
-                    
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
@@ -378,6 +377,54 @@ export default{
            console.log(event.target.options[event.target.options.selectedIndex].getAttribute('data-price'));
            vm.form.price = event.target.options[event.target.options.selectedIndex].getAttribute('data-price');
         },
+        view(data)
+        {
+            console.log(data);
+            const vm = this;
+            axios
+                .post('/procurement2.0/get/category',{
+                    cat_id : data.category_id
+                })
+                .then(function(response){
+                    // console.log(response.data.cat);
+                    vm.cat_value = response.data.cat;
+                })
+                .catch(function(error){
+                    console.log(error)
+                })
+
+            vm.form.id = data.id,
+            vm.form.year = data.year_id,
+            vm.form.category = data.category_id,
+            vm.form.item = data.supply_id,
+            vm.form.office = data.office_id,
+            vm.form.item_code = data.item_code,
+            vm.form.title = data.name,
+            vm.form.jan = data.jan,
+            vm.form.feb = data.feb,
+            vm.form.march = data.march,
+            vm.form.april = data.april,
+            vm.form.may = data.may,
+            vm.form.june = data.june,
+            vm.form.july = data.july,
+            vm.form.aug = data.august,
+            vm.form.sept = data.september,
+            vm.form.oct = data.october,
+            vm.form.nov = data.november,
+            vm.form.dec = data.december,
+            $('#create_ppmp_modal').modal('show');
+            axios
+                .get('/procurement2.0/procurement/addppmp/modal')
+                .then(function(response){
+                    // console.log(response)
+                    vm.office = response.data.office;
+                    vm.category = response.data.category;
+                    vm.year = response.data.year;
+                })
+                .catch(function(error){
+                    console.log(error)
+                })
+        },
         remove(dat)
         {
             this.$confirm(
@@ -393,7 +440,20 @@ export default{
              */
             callback: confirm => {
                 if (confirm) {
-                   
+                    axios
+                        .post('/procurement2.0/procurement/remove/ppmp',{
+                            ppmp_id : dat.id
+                        })
+                        .then(function(response){
+                            //console.log(response.data.status)
+                            if(response.data.status == 'updated')
+                                {
+                                    location.reload();
+                                }
+                        })
+                        .catch(function(error){
+                            console.log(error)
+                        })
                     }
                 }
             }

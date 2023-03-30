@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Route::get('/', function () {
     return redirect()->route('login');
 });
@@ -48,4 +47,16 @@ Route::post('procurement/add/item', 'admin\DraftPRCtrl@addItem');
 Route::get('procurement/ppmp', 'admin\PpmpCtrl@index');
 Route::get('procurement/addppmp/modal', 'admin\PpmpCtrl@addPpmp'); 
 Route::post('get/category', 'admin\PpmpCtrl@getCategory'); 
-Route::post('procurement/create/ppmp', 'admin\PpmpCtrl@createPPMP');
+Route::post('procurement/create/ppmp', 'admin\PpmpCtrl@createPPMP'); 
+Route::post('procurement/remove/ppmp', 'admin\PpmpCtrl@removePPMP');
+
+//Supplies
+Route::get('procurement/supplies', 'admin\SuppliesCtrl@index'); 
+Route::get('get/supp_category', 'admin\SuppliesCtrl@getCategory'); 
+Route::post('procurement/create/supply', 'admin\SuppliesCtrl@createSupply'); 
+Route::post('procurement/remove/supply', 'admin\SuppliesCtrl@removeSupply');
+
+//Suppliers 
+Route::get('procurement/supplier', 'admin\SupplierCtrl@index');
+Route::get('get/business', 'admin\SupplierCtrl@getBusiness');
+Route::post('procurement/supplier/create', 'admin\SupplierCtrl@addSupplier');

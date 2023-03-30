@@ -335,7 +335,7 @@
                     <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                     <div class="modal-header modal-colored-header bg-success">
-                                        <h4 class="modal-title" id="success-header-modalLabel">Create PR
+                                        <h4 class="modal-title" id="success-header-modalLabel"><p v-if="form.id">View PR</p><p v-else>Add PR</p> 
                                         </h4>
                                         <button type="button" class="close" data-dismiss="modal"
                                             aria-hidden="true">×</button>

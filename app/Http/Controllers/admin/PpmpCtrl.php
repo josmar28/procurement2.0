@@ -31,21 +31,14 @@ class PpmpCtrl extends Controller
     {
         $user = Auth::user();
         // ->where('procure_main.L1_office',Auth::user()->office)
-        $data = App::select('app.*','office.office as office','category.category as category','fundyear.year','supply.unit as supply_unit',
-        'supply.price as supply_price','supply.item_desc','supply.item as supply_item')
+        $data = App::select('app.*','office.office as office','office.id as office_id','category.category as category','fundyear.year','supply.unit as supply_unit',
+        'supply.price as supply_price','supply.item_desc','supply.item as supply_item','fundyear.id as year_id',)
         ->leftJoin('office','app.office','=','office.id')
         ->leftJoin('category','app.category_id','=','category.category_id')
         ->leftJoin('fundyear','app.year','=','fundyear.id')
         ->leftJoin('supply','app.supply_id','=','supply.supply_id')
         ->where('app.office',$user->office)
         ->get();
-        
-        // $data = DB::connection('hrisv2')->table('emp_basic')
-        // ->select('emp_basic.agencyid', DB::raw("CONCAT(emp_education_maphd.name_ext,' ',vw_nameext.name_ext) as full_name"))
-        // ->leftjoin('emp_education_maphd','emp_education_maphd.agencyid','=','emp_basic.agencyid')
-        // ->leftjoin('vw_nameext','vw_nameext.agencyid','=','emp_basic.agencyid')
-        // ->where('emp_basic.agencyid','2021-087')
-        // ->get();
 
         return view('admin.ppmp',[
             'data' => $data
@@ -81,7 +74,7 @@ class PpmpCtrl extends Controller
         // dd($req->all());
 
         $match = array(
-            'id' => $req->id
+            'id' => $req->ppmp_id
         );
 
         $total = $req->jan + $req->feb + $req->march + $req->april + $req->may + $req->june + $req->july + $req->aug + $req->sept + $req->oct + $req->nov + $req->dec;
@@ -117,5 +110,20 @@ class PpmpCtrl extends Controller
         return response()->json([
             'data' => $data
             ]);
+    }
+
+    public function removePPMP(Request $req)
+    {
+        $data = App::find($req->ppmp_id);
+
+        if($data)
+        {
+            $data->update([
+                'void' => 0
+            ]);
+        }
+        return response()->json([
+            'status' => 'updated'
+        ]);
     }
 }

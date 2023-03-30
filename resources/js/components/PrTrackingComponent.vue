@@ -81,7 +81,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header modal-colored-header bg-success">
-                    <h4 class="modal-title" id="success-header-modalLabel">View PR
+                    <h4 class="modal-title" id="success-header-modalLabel"><p v-if="form.barcode">View PR</p><p v-else>Add PR</p>
                     </h4>
                     <button type="button" class="close" data-dismiss="modal"
                         aria-hidden="true">×</button>
@@ -511,7 +511,6 @@
 </template>
 
 <script>
-import ModalDialog from './ModalDialog.vue'
 export default{
     
     props: ['data'],
@@ -662,20 +661,20 @@ export default{
              */
             callback: confirm => {
                 if (confirm) {
-                    axios
-                    .post('/procurement2.0/procurement/remove/pr',{
-                        pr_id : dat.id
-                    })
-                    .then(function(response){
-                        //console.log(response.data.status)
-                        if(response.data.status == 'updated')
-                            {
-                                location.reload();
-                            }
-                    })
-                    .catch(function(error){
-                        console.log(error)
-                    })
+                        axios
+                        .post('/procurement2.0/procurement/remove/pr',{
+                            pr_id : dat.id
+                        })
+                        .then(function(response){
+                            //console.log(response.data.status)
+                            if(response.data.status == 'updated')
+                                {
+                                    location.reload();
+                                }
+                        })
+                        .catch(function(error){
+                            console.log(error)
+                        })
                     }
                 }
             }

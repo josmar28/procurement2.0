@@ -187,7 +187,7 @@
                             <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                                 <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span
-                                        class="text-dark">Jason Doe</span> <i data-feather="chevron-down"
+                                        class="text-dark">{{Auth::user()->name}}</span> <i data-feather="chevron-down"
                                         class="svg-icon"></i></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
@@ -272,11 +272,11 @@
                                 aria-expanded="false"><i class="fas fa-boxes"></i><span
                                     class="hide-menu">Supply </span></a>
                             <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                                <li class="sidebar-item"><a href="table-basic.html" class="sidebar-link"><span
+                                <li class="sidebar-item"><a href="{{ asset('procurement/supplies') }}" class="sidebar-link"><span
                                             class="hide-menu"> Supplies
                                         </span></a>
                                 </li>
-                                <li class="sidebar-item"><a href="table-dark-basic.html" class="sidebar-link"><span
+                                <li class="sidebar-item"><a href="{{ asset('procurement/supplier') }}" class="sidebar-link"><span
                                             class="hide-menu"> Suppliers
                                         </span></a>
                                 </li>

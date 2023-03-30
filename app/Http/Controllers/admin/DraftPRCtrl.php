@@ -46,13 +46,6 @@ class DraftPRCtrl extends Controller
         ->orderby('procure_main.id','desc')
         ->get();
         
-        // $data = DB::connection('hrisv2')->table('emp_basic')
-        // ->select('emp_basic.agencyid', DB::raw("CONCAT(emp_education_maphd.name_ext,' ',vw_nameext.name_ext) as full_name"))
-        // ->leftjoin('emp_education_maphd','emp_education_maphd.agencyid','=','emp_basic.agencyid')
-        // ->leftjoin('vw_nameext','vw_nameext.agencyid','=','emp_basic.agencyid')
-        // ->where('emp_basic.agencyid','2021-087')
-        // ->get();
-
         return view('admin.prdraft',[
             'data' => $data
         ]);
