@@ -232,7 +232,7 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="index.html"
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ asset('home') }}"
                                 aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
                                     class="hide-menu">Dashboard</span></a></li>
                         <li class="list-divider"></li>
@@ -290,19 +290,19 @@
                                     aria-expanded="false"><i class="fa-sharp fa-solid fa-money-bill"></i><span
                                         class="hide-menu">Funding & UACS </span></a>
                                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                                        <li class="sidebar-item"><a href="form-input-grid.html" class="sidebar-link"><span
+                                        <li class="sidebar-item"><a href="{{ asset('procurement/fundsource') }}" class="sidebar-link"><span
                                                     class="hide-menu"> Fund Source
                                                 </span></a>
                                         </li>
-                                        <li class="sidebar-item"><a href="form-checkbox-radio.html" class="sidebar-link"><span
+                                        <li class="sidebar-item"><a href="{{ asset('procurement/fundtype') }}" class="sidebar-link"><span
                                                     class="hide-menu"> Fund Type
                                                 </span></a>
                                         </li>
-                                        <li class="sidebar-item"><a href="form-checkbox-radio.html" class="sidebar-link"><span
+                                        <li class="sidebar-item"><a href="{{ asset('procurement/fundyear') }}" class="sidebar-link"><span
                                                     class="hide-menu"> Fund Year
                                                 </span></a>
                                         </li>
-                                        <li class="sidebar-item"><a href="form-checkbox-radio.html" class="sidebar-link"><span
+                                        <li class="sidebar-item"><a href="{{ asset('procurement/expense/code') }}" class="sidebar-link"><span
                                                     class="hide-menu"> Expense Code
                                                 </span></a>
                                         </li>

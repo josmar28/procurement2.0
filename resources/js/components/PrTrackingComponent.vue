@@ -34,7 +34,7 @@
                                                             <div class="dropdown-menu dropdown-menu-right">
                                                                 <button class="dropdown-item" type="button" @click="view(dat)"><i class="far fa-edit"></i> View/Edit</button>
                                                                 <button class="dropdown-item" type="button" @click="remove(dat)"><i class="far fa-trash-alt"></i> Delete</button>
-                                                                <button class="dropdown-item" type="button"><i class="fas fa-file-pdf"></i> PR</button>
+                                                                <a target="_blank" :href="'print/pr/'+dat.id"> <button class="dropdown-item" type="button"><i class="fas fa-file-pdf"></i> PR </button></a>
                                                                 <button class="dropdown-item" type="button"><i class="fas fa-file-pdf"></i> RFQ</button>
                                                                 <button class="dropdown-item" type="button"><i class="fas fa-file-pdf"></i> QA</button>
                                                                 <button class="dropdown-item" type="button"><i class="fas fa-file-pdf"></i> BAC Resolution</button>

@@ -23,7 +23,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="dat in dataLists" :key="dat.id">
+                            <tr v-for="(dat, i) in dataLists" :key="i">
                                 <td width="5%"> 
                                     <div class="btn-group">
                                         <button type="button" class="btn dropdown-toggle"
@@ -38,7 +38,7 @@
                                 <td>{{dat.business_name}}</td>
                                 <td>{{dat.business_cat}}</td>
                                 <td>
-                                    <p v-if="dat.item == 1"> Active</p>
+                                    <p v-if="dat.active == 1"> Active</p>
                                     <p v-else>Inactive</p>
                                 </td>
                                 <td >{{dat.tc_val_date}}</td>
@@ -105,7 +105,7 @@
                                                     </ul>
 
                                                     <div class="tab-content">
-
+                                                        <input type="hidden" class="form-control"  v-model="form.supplier_id">
                                                         <div class="tab-pane show active" id="home1">
                                                             <div class="form-body">
                                                                 <div class="row">
@@ -307,6 +307,7 @@ export default{
         return {
             dataLists: this.data,
             form: {
+                supplier_id: null,
                 business_name: null,
                 contact: null,
                 date_reg: null,
@@ -323,7 +324,7 @@ export default{
                 link: null,
                 address: null,
                 tin: null,
-                void: null,
+                bp_val: null,
             },
             business_cat: [],
         }
@@ -347,14 +348,95 @@ export default{
                 .post('/procurement2.0/procurement/supplier/create', this.form)
                 .then(function(response){
                     console.log(response);
-                    if(response.data.status == 'updated')
-                    {
-                        location.reload();
-                    }
+                    vm.dataLists.push(response.data.data);
+                    vm.form.business_name = null
+                    vm.form.supplier_id = null
+                    vm.form.contact = null
+                    vm.form.date_reg = null
+                    vm.form.active = null
+                    vm.form.tax_clearance = null
+                    vm.form.tc_val = null
+                    vm.form.philgeps = null
+                    vm.form.philgeps_val = null
+                    vm.form.dti = null
+                    vm.form.dti_dateissued = null
+                    vm.form.business_permit = null
+                    vm.form.line_business = null
+                    vm.form.remarks = null
+                    vm.form.link = null
+                    vm.form.address = null
+                    vm.form.tin = null
+                    vm.form.bp_val = null
+                    location.reload();
                 })
                 .catch(function(error){
                     console.log(error)
                 })
+      },
+      view(data)
+      {
+        const vm = this;
+        console.log(data);
+        vm.form.supplier_id = data.id 
+        vm.form.business_name = data.business_id
+        vm.form.contact = data.contact
+        vm.form.date_reg = data.date_reg
+        vm.form.active = data.active
+        vm.form.tax_clearance = data.tax_clearance
+        vm.form.tc_val = data.tc_val
+        vm.form.philgeps = data.philgeps
+        vm.form.philgeps_val = data.philgeps_val
+        vm.form.dti = data.dti
+        vm.form.dti_dateissued = data.dti_dateissued
+        vm.form.business_permit = data.business_permit
+        vm.form.line_business = data.line_business
+        vm.form.remarks = data.remarks
+        vm.form.link = data.link
+        vm.form.address = data.address
+        vm.form.tin = data.tin  
+        vm.form.bp_val = data.bp_val
+        $('#create_supplier_modal').modal('show');
+        axios
+            .get('/procurement2.0/get/business')
+            .then(function(response){
+                vm.business_cat = response.data.data;
+            })
+            .catch(function(error){
+                console.log(error)
+            })
+      },
+      remove(data){
+        this.$confirm(
+            {
+            message: 'Are you sure?',
+            button: {
+                no: 'No',
+                yes: 'Yes'
+            },
+            /**
+             * Callback Function
+             * @param {Boolean} confirm
+             */
+            callback: confirm => {
+                if (confirm) {
+                    axios
+                        .post('/procurement2.0/procurement/remove/supplier',{
+                            supplier_id : data.id
+                        })
+                        .then(function(response){
+                            //console.log(response.data.status)
+                            if(response.data.status == 'updated')
+                                {
+                                    location.reload();
+                                }
+                        })
+                        .catch(function(error){
+                            console.log(error)
+                        })
+                    }
+                }
+            }
+            )
       },
     }
 }

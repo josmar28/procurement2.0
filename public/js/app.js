@@ -2391,6 +2391,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       dataLists: this.data,
       form: {
+        supplier_id: null,
         business_name: null,
         contact: null,
         date_reg: null,
@@ -2407,7 +2408,7 @@ __webpack_require__.r(__webpack_exports__);
         link: null,
         address: null,
         tin: null,
-        "void": null
+        bp_val: null
       },
       business_cat: []
     };
@@ -2426,11 +2427,83 @@ __webpack_require__.r(__webpack_exports__);
       var vm = this;
       axios.post('/procurement2.0/procurement/supplier/create', this.form).then(function (response) {
         console.log(response);
-        if (response.data.status == 'updated') {
-          location.reload();
-        }
+        vm.dataLists.push(response.data.data);
+        vm.form.business_name = null;
+        vm.form.supplier_id = null;
+        vm.form.contact = null;
+        vm.form.date_reg = null;
+        vm.form.active = null;
+        vm.form.tax_clearance = null;
+        vm.form.tc_val = null;
+        vm.form.philgeps = null;
+        vm.form.philgeps_val = null;
+        vm.form.dti = null;
+        vm.form.dti_dateissued = null;
+        vm.form.business_permit = null;
+        vm.form.line_business = null;
+        vm.form.remarks = null;
+        vm.form.link = null;
+        vm.form.address = null;
+        vm.form.tin = null;
+        vm.form.bp_val = null;
+        location.reload();
       })["catch"](function (error) {
         console.log(error);
+      });
+    },
+    view: function view(data) {
+      var vm = this;
+      console.log(data);
+      vm.form.supplier_id = data.id;
+      vm.form.business_name = data.business_id;
+      vm.form.contact = data.contact;
+      vm.form.date_reg = data.date_reg;
+      vm.form.active = data.active;
+      vm.form.tax_clearance = data.tax_clearance;
+      vm.form.tc_val = data.tc_val;
+      vm.form.philgeps = data.philgeps;
+      vm.form.philgeps_val = data.philgeps_val;
+      vm.form.dti = data.dti;
+      vm.form.dti_dateissued = data.dti_dateissued;
+      vm.form.business_permit = data.business_permit;
+      vm.form.line_business = data.line_business;
+      vm.form.remarks = data.remarks;
+      vm.form.link = data.link;
+      vm.form.address = data.address;
+      vm.form.tin = data.tin;
+      vm.form.bp_val = data.bp_val;
+      $('#create_supplier_modal').modal('show');
+      axios.get('/procurement2.0/get/business').then(function (response) {
+        vm.business_cat = response.data.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    remove: function remove(data) {
+      this.$confirm({
+        message: 'Are you sure?',
+        button: {
+          no: 'No',
+          yes: 'Yes'
+        },
+        /**
+         * Callback Function
+         * @param {Boolean} confirm
+         */
+        callback: function callback(confirm) {
+          if (confirm) {
+            axios.post('/procurement2.0/procurement/remove/supplier', {
+              supplier_id: data.id
+            }).then(function (response) {
+              //console.log(response.data.status)
+              if (response.data.status == 'updated') {
+                location.reload();
+              }
+            })["catch"](function (error) {
+              console.log(error);
+            });
+          }
+        }
       });
     }
   }
@@ -4566,14 +4639,19 @@ var render = function render() {
       }
     }, [_c("i", {
       staticClass: "far fa-trash-alt"
-    }), _vm._v(" Delete")]), _vm._v(" "), _c("button", {
+    }), _vm._v(" Delete")]), _vm._v(" "), _c("a", {
+      attrs: {
+        target: "_blank",
+        href: "print/pr/" + dat.id
+      }
+    }, [_c("button", {
       staticClass: "dropdown-item",
       attrs: {
         type: "button"
       }
     }, [_c("i", {
       staticClass: "fas fa-file-pdf"
-    }), _vm._v(" PR")]), _vm._v(" "), _c("button", {
+    }), _vm._v(" PR ")])]), _vm._v(" "), _c("button", {
       staticClass: "dropdown-item",
       attrs: {
         type: "button"
@@ -6005,9 +6083,9 @@ var render = function render() {
     attrs: {
       id: "zero_config"
     }
-  }, [_c("thead", [_c("tr", [_c("th", [_vm._v("Options")]), _vm._v(" "), _c("th", [_vm._v("Business Name")]), _vm._v(" "), _c("th", [_vm._v("Line of Business")]), _vm._v(" "), _c("th", [_vm._v("Status")]), _vm._v(" "), _c("th", [_vm._v("Tax Clearance Validity")]), _vm._v(" "), _c("th", [_vm._v("Philgeps Validity")]), _vm._v(" "), _c("th", [_vm._v("Business Permit Validity")])])]), _vm._v(" "), _c("tbody", _vm._l(_vm.dataLists, function (dat) {
+  }, [_c("thead", [_c("tr", [_c("th", [_vm._v("Options")]), _vm._v(" "), _c("th", [_vm._v("Business Name")]), _vm._v(" "), _c("th", [_vm._v("Line of Business")]), _vm._v(" "), _c("th", [_vm._v("Status")]), _vm._v(" "), _c("th", [_vm._v("Tax Clearance Validity")]), _vm._v(" "), _c("th", [_vm._v("Philgeps Validity")]), _vm._v(" "), _c("th", [_vm._v("Business Permit Validity")])])]), _vm._v(" "), _c("tbody", _vm._l(_vm.dataLists, function (dat, i) {
     return _c("tr", {
-      key: dat.id
+      key: i
     }, [_c("td", {
       attrs: {
         width: "5%"
@@ -6050,7 +6128,7 @@ var render = function render() {
       }
     }, [_c("i", {
       staticClass: "far fa-trash-alt"
-    }), _vm._v(" Delete")])])])]), _vm._v(" "), _c("td", [_vm._v(_vm._s(dat.business_name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(dat.business_cat))]), _vm._v(" "), _c("td", [dat.item == 1 ? _c("p", [_vm._v(" Active")]) : _c("p", [_vm._v("Inactive")])]), _vm._v(" "), _c("td", [_vm._v(_vm._s(dat.tc_val_date))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(dat.philgeps_val_date))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(dat.dti_isssued_date))])]);
+    }), _vm._v(" Delete")])])])]), _vm._v(" "), _c("td", [_vm._v(_vm._s(dat.business_name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(dat.business_cat))]), _vm._v(" "), _c("td", [dat.active == 1 ? _c("p", [_vm._v(" Active")]) : _c("p", [_vm._v("Inactive")])]), _vm._v(" "), _c("td", [_vm._v(_vm._s(dat.tc_val_date))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(dat.philgeps_val_date))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(dat.dti_isssued_date))])]);
   }), 0), _vm._v(" "), _c("tfoot", [_c("tr", [_c("th", [_vm._v("Options")]), _vm._v(" "), _c("th", [_vm._v("Business Name")]), _vm._v(" "), _c("th", [_vm._v("Line of Business")]), _vm._v(" "), _c("th", [_vm._v("Status")]), _vm._v(" "), _c("th", [_vm._v("Tax Clearance Validity")]), _vm._v(" "), _c("th", [_vm._v("Philgeps Validity")]), _vm._v(" "), _c("th", [_vm._v("Business Permit Validity")])])])])])], 1)], 1)]), _vm._v(" "), _c("div", {
     staticClass: "modal fade",
     attrs: {
@@ -6094,7 +6172,27 @@ var render = function render() {
     staticClass: "card-title mb-3"
   }, [_vm._v("Tabs Justified")]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c("div", {
     staticClass: "tab-content"
-  }, [_c("div", {
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.supplier_id,
+      expression: "form.supplier_id"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "hidden"
+    },
+    domProps: {
+      value: _vm.form.supplier_id
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "supplier_id", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("div", {
     staticClass: "tab-pane show active",
     attrs: {
       id: "home1"

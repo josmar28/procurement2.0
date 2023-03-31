@@ -29,6 +29,7 @@ Route::get('procurement/tracking', 'admin\PRtrackingCtrl@index');
 Route::get('procurement/view/track', 'admin\PRtrackingCtrl@viewTrack'); 
 Route::post('procurement/track/update', 'admin\PRtrackingCtrl@updateTrack');
 Route::post('procurement/remove/pr', 'admin\PRtrackingCtrl@remove');
+Route::get('procurement/print/pr/{id}', 'admin\PRtrackingCtrl@prPrint');
 
 //Draft PR
 Route::get('procurement/draft', 'admin\DraftPRCtrl@index');
@@ -59,4 +60,5 @@ Route::post('procurement/remove/supply', 'admin\SuppliesCtrl@removeSupply');
 //Suppliers 
 Route::get('procurement/supplier', 'admin\SupplierCtrl@index');
 Route::get('get/business', 'admin\SupplierCtrl@getBusiness');
-Route::post('procurement/supplier/create', 'admin\SupplierCtrl@addSupplier');
+Route::post('procurement/supplier/create', 'admin\SupplierCtrl@addSupplier'); 
+Route::post('procurement/remove/supplier', 'admin\SupplierCtrl@removeSupplier');
