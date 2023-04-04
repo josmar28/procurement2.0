@@ -4651,21 +4651,31 @@ var render = function render() {
       }
     }, [_c("i", {
       staticClass: "fas fa-file-pdf"
-    }), _vm._v(" PR ")])]), _vm._v(" "), _c("button", {
+    }), _vm._v(" PR ")])]), _vm._v(" "), _c("a", {
+      attrs: {
+        target: "_blank",
+        href: "print/rfq/" + dat.id
+      }
+    }, [_c("button", {
       staticClass: "dropdown-item",
       attrs: {
         type: "button"
       }
     }, [_c("i", {
       staticClass: "fas fa-file-pdf"
-    }), _vm._v(" RFQ")]), _vm._v(" "), _c("button", {
+    }), _vm._v(" RFQ")])]), _vm._v(" "), _c("a", {
+      attrs: {
+        target: "_blank",
+        href: "print/aq/" + dat.id
+      }
+    }, [_c("button", {
       staticClass: "dropdown-item",
       attrs: {
         type: "button"
       }
     }, [_c("i", {
       staticClass: "fas fa-file-pdf"
-    }), _vm._v(" QA")]), _vm._v(" "), _c("button", {
+    }), _vm._v(" QA")])]), _vm._v(" "), _c("button", {
       staticClass: "dropdown-item",
       attrs: {
         type: "button"
