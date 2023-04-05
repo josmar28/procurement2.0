@@ -4675,14 +4675,19 @@ var render = function render() {
       }
     }, [_c("i", {
       staticClass: "fas fa-file-pdf"
-    }), _vm._v(" QA")])]), _vm._v(" "), _c("button", {
+    }), _vm._v(" QA")])]), _vm._v(" "), _c("a", {
+      attrs: {
+        target: "_blank",
+        href: "print/bac_res/" + dat.id
+      }
+    }, [_c("button", {
       staticClass: "dropdown-item",
       attrs: {
         type: "button"
       }
     }, [_c("i", {
       staticClass: "fas fa-file-pdf"
-    }), _vm._v(" BAC Resolution")])])])]), _vm._v(" "), _c("td", [_vm._v(_vm._s(dat.id))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(dat.status))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(dat.office))]), _vm._v(" "), _c("td", {
+    }), _vm._v(" BAC Resolution")])])])])]), _vm._v(" "), _c("td", [_vm._v(_vm._s(dat.id))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(dat.status))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(dat.office))]), _vm._v(" "), _c("td", {
       staticStyle: {
         "white-space": "normal"
       }

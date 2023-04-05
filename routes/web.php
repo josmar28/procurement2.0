@@ -32,6 +32,7 @@ Route::post('procurement/remove/pr', 'admin\PRtrackingCtrl@remove');
 Route::get('procurement/print/pr/{id}', 'admin\PRtrackingCtrl@prPrint');
 Route::get('procurement/print/rfq/{id}', 'admin\PRtrackingCtrl@rfqPrint');
 Route::get('procurement/print/aq/{id}', 'admin\PRtrackingCtrl@aqPrint');
+Route::get('procurement/print/bac_res/{id}', 'admin\PRtrackingCtrl@bacresPrint');
 
 //Draft PR
 Route::get('procurement/draft', 'admin\DraftPRCtrl@index');

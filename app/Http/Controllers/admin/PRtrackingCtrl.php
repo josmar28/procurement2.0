@@ -361,7 +361,7 @@ class PRtrackingCtrl extends Controller
         ->leftJoin('supply','supply.supply_id','=','app.supply_id')
         ->where('pr_app.pr_ref',$id)
         ->where('pr_app.include_rfq',"!=",'2')
-        ->first();
+        ->get();
         // left join (app left join supply on supply.supply_id = app.supply_id) on app.id = pr_app.app_item
         $total = ProcureApp::select(
             DB::raw("format(sum(pr_app.quantity * pr_app.price1), 2) as amount1"),
@@ -395,6 +395,85 @@ class PRtrackingCtrl extends Controller
         $pdf->loadView('admin.printing.aq_print', $data)->setPaper('a4', 'landscape');
 
         return $pdf->stream('aq_print.pdf');
+    }
+
+    public function bacresPrint($id)
+    {
+        $data = ProcureMain::select( 'procure_main.bac_no',
+        'procure_main.procurement_description',
+        'procure_main.L1_title',
+        'category.category',
+        DB::raw("CONCAT('Php. ',FORMAT(procure_main.L1_abc,2)) as abc"),
+        'awarded_suppliers.awarded_supplier as awarded_supplier',
+        'procure_main.date_abstractcanv'
+        )
+        ->leftJoin('category','procure_main.L1_typeproc','=','category.category_id')
+        ->leftJoin('awarded_suppliers','procure_main.id','=','awarded_suppliers.pr_ref')
+        ->where('procure_main.id',$id)
+        ->first();
+
+        $awardee = 
+
+        $data1 = ProcureMain::select( 
+            'suppliers.id',
+            'suppliers.business_name',
+            DB::raw("FORMAT(SUM(pr_app.price1 * pr_app.quantity),2) as bid_price"),
+            'procure_main.bac_remarks1'
+        )
+        ->join('suppliers','procure_main.supplier1','=','suppliers.id')
+        ->join('pr_app','procure_main.id','=','pr_app.pr_ref')
+        ->where('procure_main.id',$id);
+
+
+
+        $data2 = ProcureMain::select( 
+            'suppliers.id',
+            'suppliers.business_name',
+            DB::raw("FORMAT(SUM(pr_app.price2 * pr_app.quantity),2) as bid_price"),
+            'procure_main.bac_remarks2'
+        )
+        ->join('suppliers','procure_main.supplier2','=','suppliers.id')
+        ->join('pr_app','procure_main.id','=','pr_app.pr_ref')
+        ->where('procure_main.id',$id)
+        ->union($data1);
+
+
+
+        $data3 = ProcureMain::select( 
+            'suppliers.id',
+            'suppliers.business_name',
+            DB::raw("FORMAT(SUM(pr_app.price3 * pr_app.quantity),2) as bid_price"),
+            'procure_main.bac_remarks3'
+        )
+        ->join('suppliers','procure_main.supplier3','=','suppliers.id')
+        ->join('pr_app','procure_main.id','=','pr_app.pr_ref')
+        ->where('procure_main.id',$id)
+        ->union($data2)
+        ->get();
+
+
+        $data = [
+            'id' => $id,
+            'data3' => $data3
+        ];
+
+        // return view('admin.printing.pr_print',[
+        //     'data' => $data,
+        //     'data2' => $data2
+        // ]);
+        $contxt = stream_context_create([
+            'ssl' => [
+                'verify_peer' => FALSE,
+                'verify_peer_name' => FALSE,
+                'allow_self_signed' => TRUE,
+            ]
+        ]);
+
+        $pdf = \PDF::setOptions(['isHTML5ParserEnabled' => true, 'isRemoteEnabled' => true]);
+        $pdf->getDomPDF()->setHttpContext($contxt);
+        $pdf->loadView('admin.printing.bacres_print', $data);
+
+        return $pdf->stream('bacres_print.pdf');
     }
 
 }

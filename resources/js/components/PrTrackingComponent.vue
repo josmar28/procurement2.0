@@ -37,7 +37,7 @@
                                                                 <a target="_blank" :href="'print/pr/'+dat.id"> <button class="dropdown-item" type="button"><i class="fas fa-file-pdf"></i> PR </button></a>
                                                                 <a target="_blank" :href="'print/rfq/'+dat.id"> <button class="dropdown-item" type="button"><i class="fas fa-file-pdf"></i> RFQ</button></a>
                                                                 <a target="_blank" :href="'print/aq/'+dat.id"> <button class="dropdown-item" type="button"><i class="fas fa-file-pdf"></i> QA</button></a>
-                                                                <button class="dropdown-item" type="button"><i class="fas fa-file-pdf"></i> BAC Resolution</button>
+                                                                <a target="_blank" :href="'print/bac_res/'+dat.id"> <button class="dropdown-item" type="button"><i class="fas fa-file-pdf"></i> BAC Resolution</button></a>
                                                             </div>
                                                         </div>
                                                     </td>
