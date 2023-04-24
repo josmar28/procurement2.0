@@ -135,22 +135,22 @@
 
 
                 @if($data->supplier1_id == $data->awarded_supplier_id )
-                    <td style="font-size: 9pt; text-align:center;width:16.67%" style="font-family: arialbd; background-color: #acdaef">{{$data->supplier1}} </td>;
+                    <td style="font-size: 9pt; text-align:center;width:16.67%;font-family: arialbd; background-color: #acdaef" >{{$data->supplier1}} </td>;
                 @else
-                  <td style="font-size: 9pt; text-align:center;width:16.67%" style="font-family: arialbd">{{$data->supplier1}} </td>
+                  <td style="font-size: 9pt; text-align:center;width:16.67%;font-family: arialbd" >{{$data->supplier1}} </td>
                 @endif
 
                 
                 @if($data->supplier2_id == $data->awarded_supplier_id )
-                    <td style="font-size: 9pt; text-align:center;width:16.67%" style="font-family: arialbd; background-color: #acdaef">{{$data->supplier2}} </td>;
+                    <td style="font-size: 9pt; text-align:center;width:16.67%;font-family: arialbd; background-color: #acdaef" >{{$data->supplier2}} </td>;
                 @else
-                  <td style="font-size: 9pt; text-align:center;width:16.67%" style="font-family: arialbd">{{$data->supplier2}} </td>
+                  <td style="font-size: 9pt; text-align:center;width:16.67%;font-family: arialbd">{{$data->supplier2}} </td>
                 @endif
 
                 @if($data->supplier3_id == $data->awarded_supplier_id )
-                    <td style="font-size: 9pt; text-align:center;width:16.67%" style="font-family: arialbd; background-color: #acdaef">{{$data->supplier3}} </td>;
+                    <td style="font-size: 9pt; text-align:center;width:16.67%;font-family: arialbd; background-color: #acdaef" >{{$data->supplier3}} </td>;
                 @else
-                  <td style="font-size: 9pt; text-align:center;width:16.67%" style="font-family: arialbd">{{$data->supplier3}} </td>
+                  <td style="font-size: 9pt; text-align:center;width:16.67%;font-family: arialbd">{{$data->supplier3}} </td>
                 @endif
             </tr>
         </table>
@@ -166,22 +166,22 @@
 
 
                 @if($data->supplier1_id == $data->awarded_supplier_id )
-                    <td style="font-size: 10pt; align:center;width:16.67%" style="font-family: arialbd; background-color: #acdaef">{{$datas->amount1}} </td>;
+                    <td style="font-size: 10pt; text-align:center;width:16.67%" style="font-family: arialbd; background-color: #acdaef">{{$datas->amount1}} </td>;
                 @else
-                  <td style="font-size: 10pt; align:center;width:16.67%" style="font-family: arialbd">{{$datas->amount1}} </td>
+                  <td style="font-size: 10pt; text-align:center;width:16.67%" style="font-family: arialbd">{{$datas->amount1}} </td>
                 @endif
 
                 
                 @if($data->supplier2_id == $data->awarded_supplier_id )
-                    <td style="font-size: 10pt; align:center;width:16.67%" style="font-family: arialbd; background-color: #acdaef">{{$datas->amount2}} </td>;
+                    <td style="font-size: 10pt; text-align:center;width:16.67%" style="font-family: arialbd; background-color: #acdaef">{{$datas->amount2}} </td>;
                 @else
-                  <td style="font-size: 10pt; align:center;width:16.67%" style="font-family: arialbd">{{$datas->amount2}} </td>
+                  <td style="font-size: 10pt; text-align:center;width:16.67%" style="font-family: arialbd">{{$datas->amount2}} </td>
                 @endif
 
                 @if($data->supplier3_id == $data->awarded_supplier_id )
-                    <td style="font-size: 10pt; align:center;width:16.67%" style="font-family: arialbd; background-color: #acdaef">{{$datas->amount3}} </td>;
+                    <td style="font-size: 10pt; text-align:center;width:16.67%" style="font-family: arialbd; background-color: #acdaef">{{$datas->amount3}} </td>;
                 @else
-                  <td style="font-size: 10pt; align:center;width:16.67%" style="font-family: arialbd">{{$datas->amount3}} </td>
+                  <td style="font-size: 10pt; text-align:center;width:16.67%" style="font-family: arialbd">{{$datas->amount3}} </td>
                 @endif
             </tr>
         @endforeach

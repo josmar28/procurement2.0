@@ -312,50 +312,50 @@
                                     aria-expanded="false"><i class="fa-sharp fa-solid fa-cart-shopping"></i><span
                                         class="hide-menu">Procurement </span></a>
                                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                                        <li class="sidebar-item"><a href="form-input-grid.html" class="sidebar-link"><span
+                                        <li class="sidebar-item"><a href="{{ asset('procurement/type') }}" class="sidebar-link"><span
                                                     class="hide-menu"> Type
                                                 </span></a>
                                         </li>
-                                        <li class="sidebar-item"><a href="form-checkbox-radio.html" class="sidebar-link"><span
+                                        <li class="sidebar-item"><a href="{{ asset('procurement/type/internal') }}" class="sidebar-link"><span
                                                     class="hide-menu"> Type Internal
                                                 </span></a>
                                         </li>
-                                        <li class="sidebar-item"><a href="form-checkbox-radio.html" class="sidebar-link"><span
+                                        <li class="sidebar-item"><a href="{{ asset('procurement/mode') }}" class="sidebar-link"><span
                                                     class="hide-menu"> Mode
                                                 </span></a>
                                         </li>
-                                        <li class="sidebar-item"><a href="form-checkbox-radio.html" class="sidebar-link"><span
+                                        <li class="sidebar-item"><a href="{{ asset('procurement/rfq/itb') }}" class="sidebar-link"><span
                                                     class="hide-menu"> RFQ ITB
                                                 </span></a>
                                         </li>
-                                        <li class="sidebar-item"><a href="form-checkbox-radio.html" class="sidebar-link"><span
+                                        <li class="sidebar-item"><a href="{{ asset('procurement/status/level') }}" class="sidebar-link"><span
                                                     class="hide-menu"> Status Level
                                                 </span></a>
                                         </li>
-                                        <li class="sidebar-item"><a href="form-checkbox-radio.html" class="sidebar-link"><span
+                                        <li class="sidebar-item"><a href="{{ asset('procurement/status') }}" class="sidebar-link"><span
                                                     class="hide-menu"> Status
                                                 </span></a>
                                         </li>
-                                        <li class="sidebar-item"><a href="form-checkbox-radio.html" class="sidebar-link"><span
+                                        <li class="sidebar-item"><a href="{{ asset('procurement/document/type') }}" class="sidebar-link"><span
                                                     class="hide-menu"> Document Type
                                                 </span></a>
                                         </li>
-                                        <li class="sidebar-item"><a href="form-checkbox-radio.html" class="sidebar-link"><span
+                                        <li class="sidebar-item"><a href="{{ asset('procurement/category') }}" class="sidebar-link"><span
                                                     class="hide-menu"> Category
                                                 </span></a>
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="sidebar-item"><a href="chart-knob.html" class="sidebar-link"><span
+                                <li class="sidebar-item"><a href="{{ asset('procurement/signatories') }}" class="sidebar-link"><span
                                             class="hide-menu"> Signatories
                                         </span></a>
-                                <li class="sidebar-item"><a href="chart-knob.html" class="sidebar-link"><span
+                                <li class="sidebar-item"><a href="{{ asset('procurement/offices') }}" class="sidebar-link"><span
                                             class="hide-menu"> Offices
                                         </span></a>
-                                <li class="sidebar-item"><a href="chart-knob.html" class="sidebar-link"><span
+                                <li class="sidebar-item"><a href="{{ asset('procurement/business/category') }}" class="sidebar-link"><span
                                             class="hide-menu"> Business Category
                                         </span></a>
-                                <li class="sidebar-item"><a href="chart-knob.html" class="sidebar-link"><span
+                                <li class="sidebar-item"><a href="{{ asset('procurement/pr/app') }}" class="sidebar-link"><span
                                             class="hide-menu"> PR App
                                         </span></a>
                                 </li>

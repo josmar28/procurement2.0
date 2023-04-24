@@ -195,8 +195,8 @@ $data = $data;
 				</tr>
 				<tr>
 
-				<td style="text-align:center;">REQUESTED BY <br> <br> <br><b> <u>{{$data->Requestedby}} </u></b> <br>{{$data->requesteddesig}}</td>
-				<td style="text-align:center;">APPROVED BY <br><br><br> <b><u>{{$data->approvedby}} </u></b><br>{{$data->approveddesig}}
+				<td style="text-align:center;width:50%;">REQUESTED BY <br> <br> <br><b> <u>{{$data->Requestedby}} </u></b> <br>{{$data->requesteddesig}}</td>
+				<td style="text-align:center;width:50%;">APPROVED BY <br><br><br> <b><u>{{$data->approvedby}} </u></b><br>{{$data->approveddesig}}
 				</td>
 				</tr> 
         </table>

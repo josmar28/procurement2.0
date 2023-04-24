@@ -141,7 +141,7 @@
         </tr>
 
         <tr>
-            <td style="font-weight:bold;align:center;">{{$data->title}}</td>
+            <td style="font-weight:bold;text-align:left;">{{$data->title}}</td>
             <td></td>
             <td></td>
             <td></td>nd 

@@ -49,7 +49,7 @@ class PRtrackingCtrl extends Controller
                 ->leftJoin('procure_type','procure_main.type_procure','=','procure_type.id')
                 ->where('procure_main.void',1)
                 // ->where('procure_main.L1_office',$user->office)
-                ->take(5000)
+                ->take(2000)
                 ->get();
 
         return view('admin.prtracking',[
@@ -412,7 +412,7 @@ class PRtrackingCtrl extends Controller
         ->where('procure_main.id',$id)
         ->first();
 
-        $awardee = 
+        
 
         $data1 = ProcureMain::select( 
             'suppliers.id',
@@ -424,8 +424,6 @@ class PRtrackingCtrl extends Controller
         ->join('pr_app','procure_main.id','=','pr_app.pr_ref')
         ->where('procure_main.id',$id);
 
-
-
         $data2 = ProcureMain::select( 
             'suppliers.id',
             'suppliers.business_name',
@@ -434,10 +432,8 @@ class PRtrackingCtrl extends Controller
         )
         ->join('suppliers','procure_main.supplier2','=','suppliers.id')
         ->join('pr_app','procure_main.id','=','pr_app.pr_ref')
-        ->where('procure_main.id',$id)
-        ->union($data1);
-
-
+        ->where('procure_main.id',$id);
+        
 
         $data3 = ProcureMain::select( 
             'suppliers.id',
@@ -448,13 +444,34 @@ class PRtrackingCtrl extends Controller
         ->join('suppliers','procure_main.supplier3','=','suppliers.id')
         ->join('pr_app','procure_main.id','=','pr_app.pr_ref')
         ->where('procure_main.id',$id)
-        ->union($data2)
+        ->unionAll($data1)
+        ->unionAll($data2)
+        ->orderBy('id','desc')->get();
+
+        $awardee = Suppliers::where('id',$data->awarded_supplier)->first();
+
+
+        $supplier1 = ProcureMain::select('suppliers.business_name')
+        ->join('suppliers','procure_main.supplier1','=','suppliers.id')
+        ->where('procure_main.id',$id);
+
+        $supplier2 = ProcureMain::select('suppliers.business_name')
+        ->join('suppliers','procure_main.supplier2','=','suppliers.id')
+        ->where('procure_main.id',$id);
+    
+        $supplier3 = ProcureMain::select('suppliers.business_name')
+        ->join('suppliers','procure_main.supplier3','=','suppliers.id')
+        ->where('procure_main.id',$id)
+        ->unionAll($supplier1)
+        ->unionAll($supplier2)
         ->get();
 
-
         $data = [
+            'data' => $data,
             'id' => $id,
-            'data3' => $data3
+            'data3' => $data3,
+            'awardee' => $awardee,
+            'supplier3' => $supplier3,
         ];
 
         // return view('admin.printing.pr_print',[

@@ -94,7 +94,30 @@ class DraftPRCtrl extends Controller
 
     public function showItem (Request $req)
     {
-        $items = ProcureApp::where('pr_ref',$req->id)->get();
+        // $items = ProcureApp::where('pr_ref',$req->id)->get();
+
+        $items = ProcureApp::select('pr_app.*',
+        'fundyear.year',
+        'fundyear.id as year_id',
+        'office.office',
+        'office.id as office_id',
+        'category.category',
+        'category.category_id as category_id',
+        'app.name as title',
+        'app.id as app_id ',
+        'procure_main.L1_trackno',
+        DB::raw("CONCAT(IFNULL(app.item_code, ''),' ', IFNULL(supply.item_desc, '') ) AS name"),
+            )
+        ->leftJoin('fundyear','pr_app.year','=','fundyear.id')
+        ->leftJoin('office','pr_app.office','=','office.id')
+        ->leftJoin('procure_main','pr_app.pr_ref','=','procure_main.id')
+        ->leftJoin('category','pr_app.category_id','=','category.category_id')
+        ->leftJoin('app','pr_app.app_item','=','app.id')
+        ->leftJoin('supply','app.supply_id','=','supply.supply_id')
+        ->orderby('pr_app.id','desc')
+        ->where('pr_app.pr_ref',$req->id)
+        ->get();
+
 
         $data = ProcureMain::select('procure_main.*','office.office as office','office.id as office_id','procurement_mode.mode as mode','procure_status.status as status',
         'category.category as category','category.category_id as category_id','procure_type.type as procure_type','requested_by.name as req_name','approved_by.name as app_name','cert_by1.name as cert1_name',

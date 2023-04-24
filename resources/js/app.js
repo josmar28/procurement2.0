@@ -21,8 +21,25 @@ window.Vue = require('vue');
 import VueConfirmDialog from 'vue-confirm-dialog'
 
 Vue.use(VueConfirmDialog)
-Vue.component('vue-confirm-dialog', VueConfirmDialog.default)
+Vue.component('vue-confirm-dialog', VueConfirmDialog.default)  
 
+
+Vue.component('prapp-component', require('./components/PrAppComponent.vue').default); 
+Vue.component('business-category-component', require('./components/BusiCatComponent.vue').default); 
+Vue.component('offices-component', require('./components/OfficeComponent.vue').default); 
+Vue.component('signatories-component', require('./components/SignatoriesComponent.vue').default); 
+Vue.component('category-component', require('./components/CategoryComponent.vue').default); 
+Vue.component('doctype-component', require('./components/DocTypeComponent.vue').default);
+Vue.component('status-component', require('./components/StatusComponent.vue').default);
+Vue.component('status-level-component', require('./components/StatusLevelComponent.vue').default);
+Vue.component('rfqitb-component', require('./components/RfqItbComponent.vue').default);
+Vue.component('procmode-component', require('./components/ProcModeComponent.vue').default);
+Vue.component('proctype-inter-component', require('./components/ProcTypeInterComponent.vue').default);
+Vue.component('proctype-component', require('./components/ProcTypeComponent.vue').default);
+Vue.component('expensecode-component', require('./components/ExpenseCodeComponent.vue').default);
+Vue.component('fund-year-component', require('./components/FundYearComponent.vue').default);
+Vue.component('fund-type-component', require('./components/FundTypeComponent.vue').default);
+Vue.component('fund-source-component', require('./components/FundSourceComponent.vue').default);
 Vue.component('supplier-component', require('./components/SupplierComponent.vue').default);
 Vue.component('supplies-component', require('./components/SuppliesComponent.vue').default);
 Vue.component('draftpr-component', require('./components/DraftprComponent.vue').default); 

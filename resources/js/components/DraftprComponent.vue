@@ -41,7 +41,7 @@
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <button class="dropdown-item" type="button" @click="view(dat)"><i class="far fa-edit"></i> View/Edit</button>
                                             <button class="dropdown-item" type="button" @click="remove(dat)"><i class="far fa-trash-alt"></i> Delete</button>
-                                            <button class="dropdown-item" type="button"><i class="fas fa-file-pdf"></i> PR</button>
+                                            <a target="_blank" :href="'print/pr/'+dat.id"> <button class="dropdown-item" type="button"><i class="fas fa-file-pdf"></i> PR </button></a>
                                         </div>
                                     </div>
                                     <button type="button"
@@ -147,7 +147,7 @@
                                                                         <div class="col-md-6">
                                                                             <div class="form-group">
                                                                                 <h4 class="card-title">Name</h4>
-                                                                                <input type="text" class="form-control" placeholder="Input Here..." v-model="formAdd.app_item" disabled>
+                                                                                <input type="hidden" class="form-control" placeholder="Input Here..." v-model="formAdd.app_item" disabled>
                                                                                 <textarea class="form-control" rows="3" v-model="app_item_show" placeholder="" disabled></textarea>
                                                                             </div>
                                                                         </div>
@@ -257,25 +257,19 @@
                                                                                         class="btn waves-effect waves-light btn-success"><i class="fas fa-plus"></i> Create PR</button> -->
                                                                             </div>
                                                                         <div class="table-responsive">
-                                                                        <font size="2">
+                                                                            <font size="2">
                                                                                 <table id="zero_config" class="table table-striped table-bordered no-wrap">
                                                                                     <thead>
                                                                                         <tr>
                                                                                             <th>Options</th>
-                                                                                            <th>Barcode</th>
-                                                                                            <th>Status</th>
+                                                                                            <th>ID</th>
+                                                                                            <th>PR</th>
+                                                                                            <th>Year</th>
                                                                                             <th>Office</th>
-                                                                                            <th>Procurement Title</th>
-                                                                                            <th>Procurement Type</th>
-                                                                                            <th>Pruchase Request No.</th>
                                                                                             <th>Category</th>
-                                                                                            <th>Mode</th>
-                                                                                            <th>Date Receive</th>
-                                                                                            <th>Date Forwarded to Enduser</th>
-                                                                                            <th>Requested By</th>
-                                                                                            <th>Approved By</th>
-                                                                                            <th>Certified By</th>
-                                                                                            <th>Certified By</th>
+                                                                                            <th>Title</th>
+                                                                                            <th>Name</th>
+                                                                                            <th>Quantity</th>
                                                                                         </tr>
                                                                                     </thead>
                                                                                     <tbody>
@@ -284,42 +278,30 @@
                                                                                                 
                                                                                             </td>
                                                                                             <td>{{ dat.id }}</td>
-                                                                                            <td>{{ dat.status }}</td>
-                                                                                            <td>{{ dat.office }}</td>
-                                                                                            <td style="max-width:400px; text-overflow: ellipsis; overflow: hidden;">{{ dat.L1_title }}</td>
-                                                                                            <td>{{ dat.procure_type }}</td>
                                                                                             <td>{{ dat.L1_trackno }}</td>
+                                                                                            <td>{{ dat.year }}</td>
+                                                                                            <td>{{ dat.office }}</td>
                                                                                             <td>{{ dat.category }}</td>
-                                                                                            <td>{{ dat.mode }}</td>
-                                                                                            <td>{{ dat.date_received_pr }}</td>
-                                                                                            <td>{{ dat.date_forwarded_enduser }}</td>
-                                                                                            <td>{{ dat.req_name }}</td>
-                                                                                            <td>{{ dat.app_name }}</td>
-                                                                                            <td>{{ dat.cert1_name }}</td>
-                                                                                            <td>{{ dat.cert2_name }}</td>
+                                                                                            <td style="white-space:normal;">{{ dat.title }}</td>
+                                                                                            <td style="white-space:normal;">{{ dat.name }}</td>
+                                                                                            <td>{{ dat.quantity }}</td>
                                                                                         </tr>
                                                                                     </tbody>
                                                                                     <tfoot>
                                                                                         <tr>
-                                                                                        <th>Options</th>
-                                                                                            <th>Barcode</th>
-                                                                                            <th>Status</th>
+                                                                                            <th>Options</th>
+                                                                                            <th>ID</th>
+                                                                                            <th>PR</th>
+                                                                                            <th>Year</th>
                                                                                             <th>Office</th>
-                                                                                            <th>Procurement Title</th>
-                                                                                            <th>Procurement Type</th>
-                                                                                            <th>Pruchase Request No.</th>
                                                                                             <th>Category</th>
-                                                                                            <th>Mode</th>
-                                                                                            <th>Date Receive</th>
-                                                                                            <th>Date Forwarded to Enduser</th>
-                                                                                            <th>Requested By</th>
-                                                                                            <th>Approved By</th>
-                                                                                            <th>Certified By</th>
-                                                                                            <th>Certified By</th>
+                                                                                            <th>Title</th>
+                                                                                            <th>Name</th>
+                                                                                            <th>Quantity</th>
                                                                                         </tr>
                                                                                     </tfoot>
                                                                                 </table>
-                                                                        </font>
+                                                                            </font>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -621,6 +603,8 @@ export default{
                 .then(function(response){
                     vm.dataShow = response.data.info;
                     vm.itemShow = response.data.items;
+
+                    console.log(vm.itemShow);
                 })
                 .catch(function(error){
                     console.log(error)
@@ -673,11 +657,12 @@ export default{
                     vm.itemShow.push(response.data.data);
                     vm.formAdd.L1_trackno = null,
                     vm.formAdd.L2_fundyear = null,
-                    vm.formAdd.L1_office = null,
+                    vm.formAdd.office = null,
                     vm.formAdd.L1_typeproc = null,
                     vm.formAdd.title = null,
                     vm.formAdd.app_item = null,
-                    location.reload();
+                    // location.reload();
+                    $('#create_item_modal').modal('hide');
                 })
                 .catch(function(error){
                     console.log(error)

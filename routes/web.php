@@ -65,3 +65,53 @@ Route::get('procurement/supplier', 'admin\SupplierCtrl@index');
 Route::get('get/business', 'admin\SupplierCtrl@getBusiness');
 Route::post('procurement/supplier/create', 'admin\SupplierCtrl@addSupplier'); 
 Route::post('procurement/remove/supplier', 'admin\SupplierCtrl@removeSupplier');
+
+//Fund Source
+Route::get('procurement/fundsource', 'admin\FundSourceCtrl@index');
+
+
+//Fund Type
+Route::get('procurement/fundtype', 'admin\FundTypeCtrl@index');
+
+//Fund Year 
+Route::get('procurement/fundyear', 'admin\FundYearCtrl@index');
+
+//Expense Code 
+Route::get('procurement/expense/code', 'admin\ExpenseCodeCtrl@index');
+
+//Procument Type
+Route::get('procurement/type', 'admin\ProcTypeCtrl@index');
+
+//Procurement Type Internal
+Route::get('procurement/type/internal', 'admin\ProcTypeInterCtrl@index'); 
+
+//Procurement Mode
+Route::get('procurement/mode', 'admin\ProcModeCtrl@index');
+
+//RFQ ITB 
+Route::get('procurement/rfq/itb', 'admin\RfqItbCtrl@index');
+
+//Status Level 
+Route::get('procurement/status/level', 'admin\StatusLevelCtrl@index');
+
+//Status procurement/status
+Route::get('procurement/status', 'admin\StatusCtrl@index');
+
+//Document type 
+Route::get('procurement/document/type', 'admin\DocTypeCtrl@index');
+
+//Category 
+Route::get('procurement/category', 'admin\CategoryCtrl@index');
+
+
+//Signatories 
+Route::get('procurement/signatories', 'admin\SignatoriesCtrl@index');
+
+//Offices   
+Route::get('procurement/offices', 'admin\OfficeCtrl@index');
+
+//Business Category
+Route::get('procurement/business/category', 'admin\BusiCatCtrl@index'); 
+
+//PR App 
+Route::get('procurement/pr/app', 'admin\PrAppCtrl@index'); 
