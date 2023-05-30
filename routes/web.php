@@ -67,23 +67,37 @@ Route::post('procurement/supplier/create', 'admin\SupplierCtrl@addSupplier');
 Route::post('procurement/remove/supplier', 'admin\SupplierCtrl@removeSupplier');
 
 //Fund Source
+Route::post('procurement/fundsource/remove', 'admin\FundSourceCtrl@remove');
+Route::post('procurement/fundsource/add', 'admin\FundSourceCtrl@add');
 Route::get('procurement/fundsource', 'admin\FundSourceCtrl@index');
+Route::get('get/year', 'admin\FundSourceCtrl@getYear');
 
 
 //Fund Type
-Route::get('procurement/fundtype', 'admin\FundTypeCtrl@index');
+Route::get('procurement/fundtype', 'admin\FundTypeCtrl@index'); 
+Route::post('procurement/fundtype/add', 'admin\FundTypeCtrl@add'); 
+Route::post('procurement/fundtype/remove', 'admin\FundTypeCtrl@remove');
+
 
 //Fund Year 
 Route::get('procurement/fundyear', 'admin\FundYearCtrl@index');
+Route::post('procurement/fundyear/add', 'admin\FundYearCtrl@add');  
+Route::post('procurement/fundyear/remove', 'admin\FundYearCtrl@remove');
 
 //Expense Code 
-Route::get('procurement/expense/code', 'admin\ExpenseCodeCtrl@index');
+Route::get('procurement/expense/code', 'admin\ExpenseCodeCtrl@index'); 
+Route::post('procurement/expensecode/add', 'admin\ExpenseCodeCtrl@add');   
+Route::post('procurement/expensecode/remove', 'admin\ExpenseCodeCtrl@remove');
 
 //Procument Type
-Route::get('procurement/type', 'admin\ProcTypeCtrl@index');
+Route::get('procurement/type', 'admin\ProcTypeCtrl@index'); 
+Route::post('procurement/procuretype/add', 'admin\ProcTypeCtrl@add');   
+Route::post('procurement/procuretype/remove', 'admin\ProcTypeCtrl@remove');
 
 //Procurement Type Internal
 Route::get('procurement/type/internal', 'admin\ProcTypeInterCtrl@index'); 
+Route::post('procurement/typeinternal/add', 'admin\ProcTypeInterCtrl@add');   
+Route::post('procurement/typeinternal/remove', 'admin\ProcTypeInterCtrl@remove');
 
 //Procurement Mode
 Route::get('procurement/mode', 'admin\ProcModeCtrl@index');

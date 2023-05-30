@@ -39,4 +39,48 @@ class FundYearCtrl extends Controller
             'data' => $data
         ]);
     }
+
+    public function add (Request $req)
+    {
+        // dd($req->all());
+
+        $match = array(
+            'id' => $req->id
+        );
+
+        $data = array(
+            'year' => $req->year,
+        );
+
+        $data = FundYear::updateOrCreate($match,$data);
+
+        if($data->wasRecentlyCreated){
+            Session::put('year_add',true);
+        }
+        else
+        {
+            Session::put('year_update',true);
+        }
+
+        return response()->json([
+            'data' => $data
+            ]);
+    }
+
+    public function remove (Request $req)
+    {
+        $data = FundYear::where('id',$req->id);
+
+        if($data)
+        {
+            $data->update([
+                'void' => 0
+            ]);
+        }
+        Session::put('year_remove',true);
+
+        return response()->json([
+            'status' => 'updated'
+        ]);
+    }
 }

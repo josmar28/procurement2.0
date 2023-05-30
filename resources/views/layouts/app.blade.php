@@ -256,14 +256,14 @@
                         <li class="nav-small-cap"><span class="hide-menu">Components</span></li>
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
                                 aria-expanded="false"><i data-feather="grid" class="feather-icon"></i><span
-                                    class="hide-menu">App </span></a>
+                                    class="hide-menu">APP </span></a>
                             <ul aria-expanded="false" class="collapse  first-level base-level-line">
                                 <li class="sidebar-item"><a href="{{ asset('procurement/ppmp') }}" class="sidebar-link"><span
                                             class="hide-menu"> PPMP
                                         </span></a>
                                 </li>
                                 <li class="sidebar-item"><a href="form-checkbox-radio.html" class="sidebar-link"><span
-                                            class="hide-menu"> App Report
+                                            class="hide-menu"> APP Report
                                         </span></a>
                                 </li>
                             </ul>
@@ -454,6 +454,12 @@
     <script src="{{ asset('resources/plugin_old/Lobibox/Lobibox.js') }}"></script>
 
 <script>var loadingState = '<center><img src="{{ asset('resources/img/spin.gif') }}" width="150" style="padding:20px;"></center>'; </script>
+<script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+<script>
+    var pusher = new Pusher('e1d5bbcb7f006f69e653', {
+      cluster: 'ap1'
+    });
+</script>
 @yield('js')
 </body>
 </html>

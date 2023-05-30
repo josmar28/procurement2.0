@@ -19,6 +19,7 @@ use App\Supply;
 use App\Category;
 use App\FundType;
 use App\FundYear;
+use App\Events\DraftPr;
 
 class DraftPRCtrl extends Controller
 {
@@ -44,13 +45,12 @@ class DraftPRCtrl extends Controller
         ->where('procure_main.L1_status','3')
         ->where('procure_main.void',1)
         ->orderby('procure_main.id','desc')
+        ->limit(2000)
         ->get();
         
         return view('admin.prdraft',[
             'data' => $data
         ]);
-
-
     }
 
     public function createPR (Request $req)
@@ -79,6 +79,15 @@ class DraftPRCtrl extends Controller
         );
        $data = $req->all();
        $data = ProcureMain::updateOrCreate($match,$data);
+
+
+       if($data->wasRecentlyCreated){
+            Session::put('create_pr',true);
+        }
+        else
+        {
+            Session::put('update_pr',true);
+        }
 
         return response()->json([
         'data' => $data
@@ -179,6 +188,8 @@ class DraftPRCtrl extends Controller
         );
         ProcureApp::Create($data);
 
+        Session::put('add_item_draft',true);
+
         return response()->json([
             'data' => $data
         ]);
@@ -194,6 +205,8 @@ class DraftPRCtrl extends Controller
                 'void' => 0
             ]);
         }
+
+        Session::put('remove_pr',true);
         return response()->json([
             'status' => 'updated'
         ]);

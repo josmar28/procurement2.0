@@ -82,7 +82,7 @@
                                         <div class="card-body">
                                                 <div class="form-body">
                                                 <div class="row">
-                                                    <input type="hidden" class="form-control" placeholder="Input Here..." v-model="form.id">
+                                                    <input type="hidden" class="form-control" placeholder="Input Here..." v-model="form.supply_id">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                         <h4 class="card-title">Category</h4>
@@ -155,7 +155,7 @@ export default{
         return {
             dataLists: this.data,
             form: {
-                id: null,
+                supply_id: null,
                 category: null,
                 item: null,
                 item_desc: null,
@@ -169,6 +169,13 @@ export default{
     methods: {
         create_supply(){
             const vm = this;
+            vm.form.supply_id = null,
+            vm.form.category = null,
+            vm.form.item = null,
+            vm.form.item_desc = null,
+            vm.form.price = null,
+            vm.form.unit = null,
+            vm.form.status = null,
             $('#create_supply_modal').modal('show');
             axios
                 .get('/procurement2.0/get/supp_category')
@@ -186,7 +193,7 @@ export default{
                 .post('/procurement2.0/procurement/create/supply', this.form)
                 .then(function(response){
                     vm.dataLists.push(response.data.data);
-                    vm.form.id = null,
+                    vm.form.supply_id = null,
                     vm.form.category = null,
                     vm.form.item = null,
                     vm.form.item_desc = null,
@@ -202,7 +209,7 @@ export default{
         view(data){
             console.log(data);
             const vm = this;
-            vm.form.id = data.supply_id;
+            vm.form.supply_id = data.supply_id;
             vm.form.category = data.category_id;
             vm.form.item = data.item;
             vm.form.item_desc = data.item_desc;

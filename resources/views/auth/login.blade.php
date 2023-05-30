@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Procurement2.0</title>
+	<title>PMIS</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -45,7 +45,7 @@
                         <img src="{{ asset('public/img/doh.png') }}" style="width: 100px; height: 100px; " />
                         <img src="{{ asset('public/img/dohro12logo_100RES.png') }}" style="width: 100px; height: 100px;" />
                         <br />
-                        <a href="#" style="font-weight:bolder; color:black;"><i><label style="font-size: 15pt;">PROCUREMENT 2.0</label></i></a>
+                        <a href="#" style="font-weight:bolder; color:black;"><i><label style="font-size: 13pt;">Procurement Management Information System</label></i></a>
                     </center>
                     </div><!-- /.login-logo -->
 				</div>

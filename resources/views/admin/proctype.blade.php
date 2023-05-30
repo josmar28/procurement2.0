@@ -7,7 +7,8 @@
         <proctype-component :data="{{ $data }}" ></proctype-component>
 </div>
 
-@section('js')
+@section('js') proctype
+@include('script.proctype')
 @endsection
 @endsection
 

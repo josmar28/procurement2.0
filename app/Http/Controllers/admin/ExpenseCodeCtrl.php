@@ -39,4 +39,49 @@ class ExpenseCodeCtrl extends Controller
             'data' => $data
         ]);
     }
+
+    public function add (Request $req)
+    {
+        // dd($req->all());
+
+        $match = array(
+            'id' => $req->id
+        );
+
+        $data = array(
+            'code' => $req->code,
+            'name' => $req->name,
+        );
+
+        $data = AccountCodes::updateOrCreate($match,$data);
+
+        if($data->wasRecentlyCreated){
+            Session::put('expense_add',true);
+        }
+        else
+        {
+            Session::put('expense_update',true);
+        }
+
+        return response()->json([
+            'data' => $data
+            ]);
+    }
+
+    public function remove (Request $req)
+    {
+        $data = AccountCodes::where('id',$req->id);
+
+        if($data)
+        {
+            $data->update([
+                'void' => 0
+            ]);
+        }
+        Session::put('expense_remove',true);
+
+        return response()->json([
+            'status' => 'updated'
+        ]);
+    }
 }

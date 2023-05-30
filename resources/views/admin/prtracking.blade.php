@@ -6,7 +6,8 @@
         
 </div>
 
-@section('js')
+@section('js') 
+@include('script.prtracking')
 @endsection
 @endsection
-
+ 

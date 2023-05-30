@@ -7,7 +7,8 @@
         <expensecode-component :data="{{ $data }}" ></expensecode-component>
 </div>
 
-@section('js')
+@section('js') 
+@include('script.expensecode')
 @endsection
 @endsection
 

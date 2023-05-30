@@ -39,4 +39,54 @@ class ProcTypeInterCtrl extends Controller
             'data' => $data
         ]);
     }
+
+    public function add (Request $req)
+    {
+        // dd($req->all());
+
+        $match = array(
+            'id' => $req->id
+        );
+
+        $data = array(
+            'type' => $req->type,
+        );
+
+        $data = ProcurementType::updateOrCreate($match,$data);
+
+        if($data->wasRecentlyCreated){
+            Session::put('pr_type_inter_add',true);
+        }
+        else
+        {
+            Session::put('pr_type_inter_update',true);
+        }
+
+        return response()->json([
+            'data' => $data
+            ]);
+    }
+
+    public function remove (Request $req)
+    {
+        $data = ProcurementType::where('id',$req->id);
+
+        if($data)
+        {
+            $data->update([
+                'void' => 0
+            ]);
+
+            Session::put('pr_type_inter_remove',true);
+        }
+
+        else{
+            Session::put('pr_type_inter_remove_no',true);
+        }
+      
+
+        return response()->json([
+            'status' => 'updated'
+        ]);
+    }
 }

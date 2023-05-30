@@ -41,4 +41,61 @@ class FundSourceCtrl extends Controller
             'data' => $data
         ]);
     }
+
+    
+    public function getYear(Request $req)
+    {
+        $year = FundYear::where('void',1)->orderby('id','desc')->get();
+
+        
+        return response()->json([
+            'year' => $year
+            ]);
+    }
+
+    public function add(Request $req)
+    {
+        // dd($req->all());
+
+        $match = array(
+            'id' => $req->id
+        );
+
+        $data = array(
+            'year' => $req->year,
+            'fundsource' => $req->fundsource,
+            'amount' => $req->amount,
+        );
+
+        $data = FundSource::updateOrCreate($match,$data);
+
+        if($data->wasRecentlyCreated){
+            Session::put('source_add',true);
+        }
+        else
+        {
+            Session::put('source_update',true);
+        }
+
+        return response()->json([
+            'data' => $data
+            ]);
+    }
+
+    public function remove (Request $req)
+    {
+        $data = FundSource::where('id',$req->id);
+
+        if($data)
+        {
+            $data->update([
+                'void' => 0
+            ]);
+        }
+        Session::put('remove_source',true);
+
+        return response()->json([
+            'status' => 'updated'
+        ]);
+    }
 }

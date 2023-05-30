@@ -3,10 +3,10 @@
         <div class="card">
         <div class="card-body">
             <vue-confirm-dialog></vue-confirm-dialog>
-            <h4 class="card-title">Fund Type List</h4>
+            <h4 class="card-title">Fund Type Internal List</h4>
                 <div style="margin-bottom:20px;">
                     <button type="button"
-                    class="btn waves-effect waves-light btn-rounded btn-success" @click="create_pr()">Create Type</button>
+                    class="btn waves-effect waves-light btn-rounded btn-success" @click="create_pr_type_inter()">Create Type</button>
                 </div>
             <div class="table-responsive">
                 <font size="2">
@@ -48,6 +48,46 @@
         </div>
         </div>
       
+        <div id="create_type_inter_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="success-header-modalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header modal-colored-header bg-success">
+                        <h4 class="modal-title" id="success-header-modalLabel"> <p v-if="form.id">View Supply</p><p v-else>Add Supply</p>
+                        </h4>
+                        <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                                <div class="form-body">
+                                                    <input type="hidden" class="form-control" placeholder="Input Here..." v-model="form.id">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <h4 class="card-title">Procure Type</h4>
+                                                                <input type="text" class="form-control" placeholder="Input Here..." v-model="form.type" >
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                <div class="form-actions">
+                                                    <div class="text-right">
+                                                        <button class="btn btn-info" @click="pr_type_inter_submit()">Submit</button>
+                                                    </div> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>        
+                    </div> 
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
     </div>
 
 </template>
@@ -77,5 +117,73 @@ export default{
             },
          }
     },
+
+    methods: {
+        create_pr_type_inter(){
+            const vm = this;
+            vm.form.id = null,
+            vm.form.type = null,
+            $('#create_type_inter_modal').modal('show');
+        },
+
+        pr_type_inter_submit()
+        {
+            const vm = this;
+            axios
+                .post('/procurement2.0/procurement/typeinternal/add', this.form)
+                .then(function(response){
+                    vm.dataLists.push(response.data.data);
+                    vm.form.id = null,
+                    vm.form.type = null,
+                    location.reload();
+                })
+                .catch(function(error){
+                    console.log(error)
+                })
+        },
+        view(data){
+            console.log(data);
+            const vm = this;
+
+                vm.form.id = data.id,
+                vm.form.type = data.type,
+
+            $('#create_type_inter_modal').modal('show');
+        },
+        remove(dat)
+        {
+            this.$confirm(
+            {
+            message: 'Are you sure?',
+            button: {
+                no: 'No',
+                yes: 'Yes'
+            },
+            /**
+             * Callback Function
+             * @param {Boolean} confirm
+             */
+            callback: confirm => {
+                if (confirm) {
+                    axios
+                        .post('/procurement2.0/procurement/typeinternal/remove',{
+                            id : dat.id
+                        })
+                        .then(function(response){
+                            //console.log(response.data.status)
+                            if(response.data.status == 'updated')
+                                {
+                                    location.reload();
+                                }
+                        })
+                        .catch(function(error){
+                            console.log(error)
+                        })
+                    }
+                }
+            }
+            )
+        },
+    }
 }
 </script>

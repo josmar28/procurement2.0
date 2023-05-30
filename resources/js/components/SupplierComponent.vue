@@ -332,6 +332,24 @@ export default{
     methods: {
         create_supplier(){
            const vm = this;
+           vm.form.business_name = null
+            vm.form.supplier_id = null
+            vm.form.contact = null
+            vm.form.date_reg = null
+            vm.form.active = null
+            vm.form.tax_clearance = null
+            vm.form.tc_val = null
+            vm.form.philgeps = null
+            vm.form.philgeps_val = null
+            vm.form.dti = null
+            vm.form.dti_dateissued = null
+            vm.form.business_permit = null
+            vm.form.line_business = null
+            vm.form.remarks = null
+            vm.form.link = null
+            vm.form.address = null
+            vm.form.tin = null
+            vm.form.bp_val = null
         $('#create_supplier_modal').modal('show');
         axios
             .get('/procurement2.0/get/business')
@@ -378,7 +396,7 @@ export default{
         const vm = this;
         console.log(data);
         vm.form.supplier_id = data.id 
-        vm.form.business_name = data.business_id
+        vm.form.business_name = data.business_name
         vm.form.contact = data.contact
         vm.form.date_reg = data.date_reg
         vm.form.active = data.active

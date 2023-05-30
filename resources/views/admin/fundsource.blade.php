@@ -8,6 +8,7 @@
 </div>
 
 @section('js')
+@include('script.fundsource')
 @endsection
 @endsection
 

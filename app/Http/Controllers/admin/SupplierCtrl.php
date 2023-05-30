@@ -88,6 +88,14 @@ class SupplierCtrl extends Controller
         
         $data = Suppliers::updateOrCreate($match,$data);
 
+        if($data->wasRecentlyCreated){
+            Session::put('create_supplier',true);
+        }
+        else
+        {
+            Session::put('update_supplier',true);
+        }
+
         return response()->json([
             'data' => $data
             ]);
@@ -104,6 +112,7 @@ class SupplierCtrl extends Controller
                 'void' => 0
             ]);
         }
+        Session::put('remove_supplier',true);
         return response()->json([
             'status' => 'updated'
         ]);

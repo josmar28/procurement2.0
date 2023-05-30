@@ -3,6 +3,7 @@
         <div class="card">
         <div class="card-body">
             <vue-confirm-dialog></vue-confirm-dialog>
+            <notifications group="foo" />
             <h4 class="card-title">Draft PR List</h4>
                 <div style="margin-bottom:20px;">
                     <button type="button"
@@ -486,6 +487,7 @@
 </template>
 <script>
 
+
 export default{
     props: ['data'],
     data() {
@@ -534,7 +536,9 @@ export default{
          }
     },
     methods: {
+        
         submit() {
+
             const vm = this;
             axios
                 .post('/procurement2.0/procurement/add', this.form)
@@ -661,8 +665,7 @@ export default{
                     vm.formAdd.L1_typeproc = null,
                     vm.formAdd.title = null,
                     vm.formAdd.app_item = null,
-                    // location.reload();
-                    $('#create_item_modal').modal('hide');
+                    location.reload();
                 })
                 .catch(function(error){
                     console.log(error)

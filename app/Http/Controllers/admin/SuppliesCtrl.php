@@ -56,8 +56,8 @@ class SuppliesCtrl extends Controller
     {
         // dd($req->all());
 
-        $match = array(
-            'supply_id' => $req->ppmp_id
+        $same = array(
+            'supply_id' => $req->supply_id
         );
 
         $data = array(
@@ -66,11 +66,18 @@ class SuppliesCtrl extends Controller
             'item_desc' => $req->item_desc,
             'price' => $req->price,
             'unit' => $req->unit,
-            'status' => $req->status,
-            'void' => 1,
+            'status' => $req->status
         );
         
-        $data = Supply::updateOrCreate($match,$data);
+        $data = Supply::updateOrCreate($same,$data);
+
+        if($data->wasRecentlyCreated){
+            Session::put('create_supply',true);
+        }
+        else
+        {
+            Session::put('update_supply',true);
+        }
 
         return response()->json([
             'data' => $data
@@ -87,6 +94,7 @@ class SuppliesCtrl extends Controller
                 'void' => 0
             ]);
         }
+        Session::put('remove_supply',true);
         return response()->json([
             'status' => 'updated'
         ]);

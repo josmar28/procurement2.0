@@ -132,6 +132,8 @@ class PRtrackingCtrl extends Controller
         {
             $update->update($data);
         }
+        Session::put('update_pr',true);
+
         return response()->json([
             'status' => 'updated'
         ]);
@@ -147,6 +149,8 @@ class PRtrackingCtrl extends Controller
                 'void' => 0
             ]);
         }
+
+        Session::put('remote_pr',true);
         return response()->json([
             'status' => 'updated'
         ]);

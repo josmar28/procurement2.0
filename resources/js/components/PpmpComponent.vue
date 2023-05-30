@@ -314,6 +314,25 @@ export default{
     methods: {
         create_ppmp(){
             const vm = this;
+            vm.form.id = null,
+            vm.form.year = null,
+            vm.form.category = null,
+            vm.form.item = null,
+            vm.form.office = null,
+            vm.form.item_code = null,
+            vm.form.title = null,
+            vm.form.jan = null,
+            vm.form.feb = null,
+            vm.form.march = null,
+            vm.form.april = null,
+            vm.form.may = null,
+            vm.form.june = null,
+            vm.form.july = null,
+            vm.form.aug = null,
+            vm.form.sept = null,
+            vm.form.oct = null,
+            vm.form.nov = null,
+            vm.form.dec = null
             $('#create_ppmp_modal').modal('show');
             axios
                 .get('/procurement2.0/procurement/addppmp/modal')
@@ -348,6 +367,7 @@ export default{
                 .post('/procurement2.0/procurement/create/ppmp', this.form)
                 .then(function(response){
                     vm.dataLists.push(response.data.data);
+                    vm.form.id = null,
                     vm.form.year = null,
                     vm.form.category = null,
                     vm.form.item = null,

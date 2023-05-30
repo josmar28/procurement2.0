@@ -5,8 +5,7 @@
         <draftpr-component :data="{{ $data }}" ></draftpr-component>
 </div>
 
-@include('modal.createpr')
 @section('js')
-@include('script.createpr')
+@include('script.prdraft')
 @endsection
 @endsection

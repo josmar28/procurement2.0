@@ -39,4 +39,49 @@ class FundTypeCtrl extends Controller
             'data' => $data
         ]);
     }
+
+    public function add (Request $req)
+    {
+        // dd($req->all());
+
+        $match = array(
+            'id' => $req->id
+        );
+
+        $data = array(
+            'fundtype' => $req->fundtype,
+        );
+
+        $data = FundType::updateOrCreate($match,$data);
+
+        if($data->wasRecentlyCreated){
+            Session::put('type_add',true);
+        }
+        else
+        {
+            Session::put('type_update',true);
+        }
+
+        return response()->json([
+            'data' => $data
+            ]);
+    }
+
+    public function remove (Request $req)
+    {
+        $data = FundType::where('id',$req->id);
+
+        if($data)
+        {
+            $data->update([
+                'void' => 0
+            ]);
+        }
+        Session::put('remove_type',true);
+
+        return response()->json([
+            'status' => 'updated'
+        ]);
+    }
+
 }

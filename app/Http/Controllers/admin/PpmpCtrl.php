@@ -38,6 +38,7 @@ class PpmpCtrl extends Controller
         ->leftJoin('fundyear','app.year','=','fundyear.id')
         ->leftJoin('supply','app.supply_id','=','supply.supply_id')
         ->where('app.office',$user->office)
+        ->orderby('app.id','desc')
         ->get();
 
         return view('admin.ppmp',[
@@ -74,7 +75,7 @@ class PpmpCtrl extends Controller
         // dd($req->all());
 
         $match = array(
-            'id' => $req->ppmp_id
+            'id' => $req->id
         );
 
         $total = $req->jan + $req->feb + $req->march + $req->april + $req->may + $req->june + $req->july + $req->aug + $req->sept + $req->oct + $req->nov + $req->dec;
@@ -107,6 +108,14 @@ class PpmpCtrl extends Controller
         
         $data = App::updateOrCreate($match,$data);
 
+        if($data->wasRecentlyCreated){
+            Session::put('create_ppmp',true);
+        }
+        else
+        {
+            Session::put('update_ppmp',true);
+        }
+
         return response()->json([
             'data' => $data
             ]);
@@ -122,6 +131,7 @@ class PpmpCtrl extends Controller
                 'void' => 0
             ]);
         }
+        Session::put('remove_ppmp',true);
         return response()->json([
             'status' => 'updated'
         ]);
