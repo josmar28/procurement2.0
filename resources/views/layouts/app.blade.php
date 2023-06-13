@@ -262,7 +262,7 @@
                                             class="hide-menu"> PPMP
                                         </span></a>
                                 </li>
-                                <li class="sidebar-item"><a href="form-checkbox-radio.html" class="sidebar-link"><span
+                                <li class="sidebar-item"><a href="{{ asset('procurement/APP') }}" class="sidebar-link"><span
                                             class="hide-menu"> APP Report
                                         </span></a>
                                 </li>

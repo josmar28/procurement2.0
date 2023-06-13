@@ -27,6 +27,7 @@ Vue.use(VueConfirmDialog)
 Vue.component('vue-confirm-dialog', VueConfirmDialog.default)  
 
 
+Vue.component('app-report-component', require('./components/APPComponent.vue').default); 
 Vue.component('prapp-component', require('./components/PrAppComponent.vue').default); 
 Vue.component('business-category-component', require('./components/BusiCatComponent.vue').default); 
 Vue.component('offices-component', require('./components/OfficeComponent.vue').default); 

@@ -54,6 +54,9 @@ Route::post('get/category', 'admin\PpmpCtrl@getCategory');
 Route::post('procurement/create/ppmp', 'admin\PpmpCtrl@createPPMP'); 
 Route::post('procurement/remove/ppmp', 'admin\PpmpCtrl@removePPMP');
 
+//APP
+Route::get('procurement/APP', 'admin\APPCtrl@index');
+
 //Supplies
 Route::get('procurement/supplies', 'admin\SuppliesCtrl@index'); 
 Route::get('get/supp_category', 'admin\SuppliesCtrl@getCategory'); 
