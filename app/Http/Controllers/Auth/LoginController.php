@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 use App\User;
 
 class LoginController extends Controller
@@ -44,6 +45,7 @@ class LoginController extends Controller
 
     public function login(Request $req) 
       {
+        Session::put('LoginUsername',$req->username);
         $input = $req->all();
         $login = User::where('username',$req->username)->first();
         if(auth()->attempt(array('username' => $input['username'], 'password' => $input['password'])) || $login)

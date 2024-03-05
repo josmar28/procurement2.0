@@ -20,6 +20,7 @@ Auth::routes();
 
 Route::get('logout',function(){
         Auth::logout();
+        Session::put('LoginUsername', false);
     return redirect('/');
 });
 Route::get('/home', 'HomeController@index')->name('home');

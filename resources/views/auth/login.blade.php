@@ -34,7 +34,7 @@
             <div class="alert alert-success text-center">
                 <strong class="text-center">{{ Session::get('ok') }}</strong>
             </div>
-        </div>
+        </div> 
     @endif
 	<div class="limiter">
 		<div class="container-login100">
@@ -57,7 +57,7 @@
                      @endif 
 					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
 						<span class="label-input100">Username</span>
-						<input class="input100" type="text" name="username" placeholder="Enter username">
+						<input class="input100" type="text" name="username" placeholder="Enter username" value="@if(Session::get('LoginUsername')){{ Session::get('LoginUsername')}}@endif">
 						<span class="focus-input100"></span>
 					</div>
 
